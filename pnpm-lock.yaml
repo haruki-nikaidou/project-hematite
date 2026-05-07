@@ -41,6 +41,9 @@ importers:
       svelte:
         specifier: ^5.55.5
         version: 5.55.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
 packages:
 

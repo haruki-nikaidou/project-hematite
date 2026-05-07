@@ -16,9 +16,6 @@ export default defineConfig({
         external: ['/pagefind/pagefind.js'],
       },
     },
-    optimizeDeps: {
-      exclude: ['@pagefind/default-ui'],
-    },
   },
   site: 'https://hematite.example.com',
   output: 'static',
