@@ -1,0 +1,120 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import LevelBadge from '../components/LevelBadge.astro';
+import { t } from '../lib/i18n';
+import { cpUrl, indexUrl } from '../lib/paths';
+import type { Locale } from '../lib/constants';
+import type { GraphNode } from '../lib/graph';
+
+interface Props {
+  lang: Locale;
+  dirPrefix: string;
+  title: string;
+  subDirs: string[];
+  checkpoints: GraphNode[];
+}
+
+const { lang, dirPrefix, title, subDirs, checkpoints } = Astro.props;
+---
+
+<BaseLayout title={title} lang={lang}>
+  <div class="index-layout">
+    {dirPrefix && <Breadcrumb lang={lang} dirPrefix={dirPrefix} />}
+
+    <h1>{title}</h1>
+
+    {subDirs.length > 0 && (
+      <section data-pagefind-ignore>
+        <h2>{t(lang, 'index.subcategories')}</h2>
+        <ul class="index-list subdir-list">
+          {subDirs.map((sub) => {
+            const label = sub.split('/').at(-1)!.replace(/-/g, ' ');
+            return (
+              <li>
+                <a href={indexUrl(lang, sub)} class="index-link subdir-link">
+                  <span class="index-link-label">{label}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
+
+    {checkpoints.length > 0 && (
+      <section
+        data-pagefind-body
+        data-pagefind-filter={`lang:${lang}`}
+        data-pagefind-meta={`lang:${lang}, title:${title}`}
+      >
+        <h2>{t(lang, 'index.checkpoints')}</h2>
+        <ul class="index-list cp-list">
+          {checkpoints.map((cp) => (
+            <li>
+              <a href={cpUrl(lang, cp.id)} class="index-link cp-link">
+                <span class="index-link-label">{cp.title}</span>
+                <LevelBadge level={cp.level} lang={lang} small={true} />
+                {cp.summary && <span class="cp-summary">{cp.summary}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  h1 {
+    text-transform: capitalize;
+  }
+
+  h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 2rem 0 1rem;
+  }
+
+  .index-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .index-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--fg);
+    transition: background var(--transition);
+    flex-wrap: wrap;
+
+    &:hover {
+      background: var(--surface);
+      text-decoration: none;
+    }
+  }
+
+  .index-link-label {
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .subdir-link .index-link-label::before {
+    content: '📁 ';
+  }
+
+  .cp-summary {
+    flex: 1 1 100%;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.1rem;
+    padding-left: 0;
+  }
+</style>

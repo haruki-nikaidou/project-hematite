@@ -1,0 +1,131 @@
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-6);
+  gap: var(--space-4);
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--fg);
+    text-decoration: none;
+    flex-shrink: 0;
+    letter-spacing: -0.02em;
+
+    .logo-accent { color: var(--active); }
+  }
+
+  .nav-search {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+}
+
+.site-main {
+  min-height: calc(100vh - var(--nav-height) - 4rem);
+}
+
+.content-wrap {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+.wide-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+// Checkpoint layout: content + optional TOC sidebar
+.cp-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 220px;
+  }
+}
+
+.cp-article {
+  min-width: 0;
+}
+
+.cp-sidebar {
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}
+
+// Index layout
+.index-layout {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+// Card grid for home page
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--space-6);
+  transition: border-color var(--transition), transform var(--transition);
+  text-decoration: none;
+  color: var(--fg);
+  display: block;
+
+  &:hover {
+    border-color: var(--active);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+    color: var(--fg);
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+}

@@ -1,0 +1,45 @@
+---
+import Search from './Search.svelte';
+import ThemeToggle from './ThemeToggle.svelte';
+import type { Locale } from '../lib/constants';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+---
+
+<nav class="site-nav" data-pagefind-ignore>
+  <a href={`/${lang}/`} class="nav-logo">
+    Project <span class="logo-accent">Hematite</span>
+  </a>
+
+  <div class="nav-search">
+    <Search {lang} client:load />
+  </div>
+
+  <div class="nav-right">
+    <a href={`/${lang}/index/elementry/`} class="nav-link">Explore</a>
+    <ThemeToggle {lang} client:load />
+  </div>
+</nav>
+
+<style lang="scss">
+  @use '../styles/layout';
+
+  .nav-link {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: color var(--transition), background var(--transition);
+
+    &:hover {
+      color: var(--fg);
+      background: var(--surface);
+      text-decoration: none;
+    }
+  }
+</style>

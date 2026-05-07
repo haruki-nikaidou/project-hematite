@@ -1,0 +1,28 @@
+@use 'katex/dist/katex.min.css';
+@use 'tokens';
+@use 'typography';
+@use 'layout';
+@use 'markdown';
+@use 'katex' as katex-overrides;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--active);
+  outline-offset: 2px;
+}

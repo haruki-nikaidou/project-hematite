@@ -1,0 +1,82 @@
+---
+import { t } from '../lib/i18n';
+import { cpUrl } from '../lib/paths';
+import type { Locale } from '../lib/constants';
+
+interface Props {
+  lang: Locale;
+  cpId: string;
+  availableLangs: string[];
+}
+
+const { lang, cpId, availableLangs } = Astro.props;
+
+const langLabels: Record<string, string> = {
+  en: 'English',
+  ja: '日本語',
+};
+---
+
+{availableLangs.length > 1 && (
+  <div class="lang-switcher">
+    <span class="lang-label">{t(lang, 'lang.switch')}</span>
+    <ul>
+      {availableLangs.map((l) => (
+        <li>
+          {l === lang ? (
+            <span class="lang-current" aria-current="true">{langLabels[l] ?? l}</span>
+          ) : (
+            <a href={cpUrl(l, cpId)}>{langLabels[l] ?? l}</a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+<style lang="scss">
+  .lang-switcher {
+    margin-bottom: 1.5rem;
+  }
+
+  .lang-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  a, .lang-current {
+    font-size: 0.85rem;
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  a {
+    color: var(--fg);
+    text-decoration: none;
+
+    &:hover {
+      border-color: var(--active);
+      color: var(--active);
+    }
+  }
+
+  .lang-current {
+    color: var(--active);
+    border-color: var(--active);
+    font-weight: 600;
+  }
+</style>

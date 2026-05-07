@@ -1,0 +1,63 @@
+:root {
+  // Colors – light mode
+  --fg: #262625;
+  --bg: #e1e1db;
+  --muted: #737480;
+  --active: #e69f67;
+  --border: #c8c8c0;
+  --surface: #d4d4cc;
+  --code-bg: #c8c8be;
+
+  // Typography
+  --font-serif: 'Source Serif 4', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+
+  // Spacing
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  // Layout
+  --content-width: 780px;
+  --nav-height: 3.5rem;
+
+  // Transitions
+  --transition: 150ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --fg: #c5c5c5;
+    --bg: #0f1419;
+    --muted: #737480;
+    --active: #ffb454;
+    --border: #2a2e36;
+    --surface: #1a1f26;
+    --code-bg: #1e242c;
+  }
+}
+
+:root[data-theme='dark'] {
+  --fg: #c5c5c5;
+  --bg: #0f1419;
+  --muted: #737480;
+  --active: #ffb454;
+  --border: #2a2e36;
+  --surface: #1a1f26;
+  --code-bg: #1e242c;
+}
+
+:root[data-theme='light'] {
+  --fg: #262625;
+  --bg: #e1e1db;
+  --muted: #737480;
+  --active: #e69f67;
+  --border: #c8c8c0;
+  --surface: #d4d4cc;
+  --code-bg: #c8c8be;
+}

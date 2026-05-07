@@ -1,0 +1,84 @@
+---
+import { indexUrl } from '../lib/paths';
+import type { Locale } from '../lib/constants';
+
+interface Props {
+  lang: Locale;
+  cpId?: string;
+  dirPrefix?: string;
+}
+
+const { lang, cpId, dirPrefix } = Astro.props;
+
+// Build breadcrumb segments from either cpId or dirPrefix
+const path = cpId ?? dirPrefix ?? '';
+const segments = path.split('/').filter(Boolean);
+
+type Crumb = { label: string; href: string | null };
+const crumbs: Crumb[] = [
+  { label: 'Home', href: `/${lang}/` },
+];
+
+// For each prefix level, add a crumb
+for (let i = 0; i < segments.length; i++) {
+  const prefix = segments.slice(0, i + 1).join('/');
+  const isLast = i === segments.length - 1 && !!cpId === false;
+  crumbs.push({
+    label: segments[i].replace(/-/g, ' '),
+    href: isLast ? null : indexUrl(lang, prefix),
+  });
+}
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumb">
+  <ol>
+    {crumbs.map((crumb, i) => (
+      <li>
+        {i > 0 && <span class="sep" aria-hidden="true">/</span>}
+        {crumb.href ? (
+          <a href={crumb.href}>{crumb.label}</a>
+        ) : (
+          <span aria-current="page">{crumb.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style lang="scss">
+  .breadcrumb {
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-transform: capitalize;
+  }
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--active);
+    }
+  }
+
+  .sep {
+    color: var(--border);
+  }
+</style>

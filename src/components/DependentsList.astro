@@ -1,0 +1,75 @@
+---
+import { cpUrl } from '../lib/paths';
+import { t } from '../lib/i18n';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import type { Locale } from '../lib/constants';
+import type { HematiteCache } from '../integrations/checkpoint-validator';
+
+interface Props {
+  lang: Locale;
+  cpIds: string[];
+}
+
+const { lang, cpIds } = Astro.props;
+
+let titles: Record<string, string> = {};
+try {
+  const cache: HematiteCache = JSON.parse(
+    readFileSync(join(process.cwd(), 'node_modules/.astro/hematite.json'), 'utf8'),
+  );
+  const nodes = cache.langs[lang]?.nodes ?? {};
+  for (const id of cpIds) {
+    titles[id] = nodes[id]?.title ?? id;
+  }
+} catch (_) {
+  for (const id of cpIds) titles[id] = id;
+}
+---
+
+<div class="dependents-list">
+  <h3 class="dep-heading">{t(lang, 'cp.dependents')}</h3>
+  <ul>
+    {cpIds.map((id) => (
+      <li>
+        <a href={cpUrl(lang, id)}>{titles[id]}</a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style lang="scss">
+  .dep-heading {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  li a {
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    background: var(--surface);
+    transition: border-color var(--transition), color var(--transition);
+
+    &:hover {
+      border-color: var(--active);
+      color: var(--active);
+    }
+  }
+</style>

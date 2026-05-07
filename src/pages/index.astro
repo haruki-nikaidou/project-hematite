@@ -1,17 +1,19 @@
 ---
-
+// Static redirect to /en/
+// The Astro redirects config handles the actual redirect;
+// this page acts as a no-JS fallback.
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content="0;url=/en/" />
+    <link rel="canonical" href="/en/" />
+    <title>Redirecting…</title>
+    <script>location.replace('/en/');</script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/en/">/en/</a>…</p>
+  </body>
 </html>

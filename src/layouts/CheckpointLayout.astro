@@ -1,0 +1,139 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import LevelBadge from '../components/LevelBadge.astro';
+import PrereqList from '../components/PrereqList.astro';
+import DependentsList from '../components/DependentsList.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import { t } from '../lib/i18n';
+import type { Locale } from '../lib/constants';
+
+interface Props {
+  lang: Locale;
+  cpId: string;
+  title: string;
+  description?: string;
+  level: string;
+  prerequisites: string[];
+  dependents: string[];
+  availableLangs: string[];
+  tags: string[];
+  updated?: string;
+}
+
+const {
+  lang,
+  cpId,
+  title,
+  description,
+  level,
+  prerequisites,
+  dependents,
+  availableLangs,
+  tags,
+  updated,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} lang={lang} ogType="article">
+  <div class="cp-layout">
+    <article class="cp-article">
+      <header class="cp-header" data-pagefind-ignore>
+        <Breadcrumb lang={lang} cpId={cpId} />
+        <div class="cp-title-row">
+          <h1 class="cp-title">{title}</h1>
+          <LevelBadge level={level} lang={lang} />
+        </div>
+        <div class="cp-meta">
+          {updated && (
+            <span class="cp-updated">
+              {t(lang, 'cp.updated')}: <time datetime={updated}>{updated}</time>
+            </span>
+          )}
+          {tags.length > 0 && (
+            <span class="cp-tags">
+              {t(lang, 'cp.tags')}: {tags.join(', ')}
+            </span>
+          )}
+        </div>
+        {prerequisites.length > 0 && (
+          <PrereqList lang={lang} cpIds={prerequisites} />
+        )}
+      </header>
+
+      <div
+        class="prose"
+        data-pagefind-body
+        data-pagefind-filter={`lang:${lang}`}
+        data-pagefind-meta={`lang:${lang}, level:${level}, title:${title}`}
+      >
+        <slot />
+      </div>
+
+      {dependents.length > 0 && (
+        <footer class="cp-footer" data-pagefind-ignore>
+          <DependentsList lang={lang} cpIds={dependents} />
+        </footer>
+      )}
+    </article>
+
+    <aside class="cp-sidebar" data-pagefind-ignore>
+      <LanguageSwitcher lang={lang} cpId={cpId} availableLangs={availableLangs} />
+
+      {prerequisites.length > 0 && (
+        <section class="sidebar-section">
+          <h3>{t(lang, 'cp.prerequisites')}</h3>
+          <PrereqList lang={lang} cpIds={prerequisites} compact={true} />
+        </section>
+      )}
+    </aside>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .cp-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cp-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cp-title {
+    margin: 0;
+    font-size: 2rem;
+    flex: 1;
+  }
+
+  .cp-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .cp-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .sidebar-section {
+    margin-bottom: 2rem;
+
+    h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0 0 0.75rem;
+    }
+  }
+</style>

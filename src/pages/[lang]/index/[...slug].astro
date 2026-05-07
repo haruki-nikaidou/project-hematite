@@ -1,0 +1,96 @@
+---
+import IndexLayout from '../../../layouts/IndexLayout.astro';
+import { getCollection } from 'astro:content';
+import { LOCALES } from '../../../lib/constants';
+import { splitEntryId } from '../../../content.config';
+import { ancestorPrefixes } from '../../../lib/paths';
+import type { GetStaticPaths } from 'astro';
+import type { Locale } from '../../../lib/constants';
+import type { GraphNode } from '../../../lib/graph';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import type { HematiteCache } from '../../../integrations/checkpoint-validator';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const entries = await getCollection('checkpoints');
+
+  // Load node metadata from cache for summaries/titles
+  const cache: HematiteCache = JSON.parse(
+    readFileSync(join(process.cwd(), 'node_modules/.astro/hematite.json'), 'utf8'),
+  );
+
+  // For each lang, collect all directory prefixes and their children
+  const paths: Array<{
+    params: { lang: string; slug: string };
+    props: {
+      lang: Locale;
+      dirPrefix: string;
+      title: string;
+      subDirs: string[];
+      checkpoints: GraphNode[];
+    };
+  }> = [];
+
+  for (const locale of LOCALES) {
+    const nodes = cache.langs[locale].nodes;
+    const cpIds = Object.keys(nodes);
+
+    // Build set of all dir prefixes
+    const allPrefixes = new Set<string>();
+    for (const cpId of cpIds) {
+      for (const prefix of ancestorPrefixes(cpId)) {
+        allPrefixes.add(prefix);
+      }
+      // Also the first segment itself is a top-level index
+      const firstSeg = cpId.split('/')[0];
+      allPrefixes.add(firstSeg);
+    }
+
+    for (const prefix of allPrefixes) {
+      // Direct children dir prefixes (one level deeper, not recursed)
+      const directSubDirs = new Set<string>();
+      // Direct leaf checkpoints (cpIds whose parent dir == prefix)
+      const directCps: GraphNode[] = [];
+
+      for (const cpId of cpIds) {
+        const parts = cpId.split('/');
+        const prefixParts = prefix.split('/');
+
+        // Check if cpId starts with prefix
+        if (!cpId.startsWith(prefix + '/')) continue;
+
+        // Relative depth
+        const remaining = cpId.slice(prefix.length + 1);
+        const remainingParts = remaining.split('/');
+
+        if (remainingParts.length === 1) {
+          // Direct leaf
+          directCps.push(nodes[cpId] as GraphNode);
+        } else {
+          // Direct subdirectory
+          directSubDirs.add(prefix + '/' + remainingParts[0]);
+        }
+      }
+
+      const label = prefix.split('/').at(-1)!.replace(/-/g, ' ');
+
+      paths.push({
+        params: { lang: locale, slug: prefix },
+        props: {
+          lang: locale as Locale,
+          dirPrefix: prefix,
+          title: label,
+          subDirs: [...directSubDirs].sort(),
+          checkpoints: directCps.sort((a, b) => a.id.localeCompare(b.id)),
+        },
+      });
+    }
+  }
+
+  return paths;
+};
+
+const { lang, dirPrefix, title, subDirs, checkpoints } = Astro.props;
+---
+
+<IndexLayout {lang} {dirPrefix} {title} {subDirs} {checkpoints} />

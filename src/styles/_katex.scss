@@ -1,0 +1,32 @@
+// KaTeX color adjustments for the hematite theme
+// The actual CSS from katex is imported in global.scss
+
+.katex {
+  font-size: 1.1em;
+  color: var(--fg);
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--space-4) 0;
+  margin: var(--space-6) 0;
+
+  > .katex {
+    display: inline-block;
+    min-width: 100%;
+    text-align: center;
+  }
+}
+
+// Ensure katex SVG/HTML elements follow theme
+.katex .mord,
+.katex .mop,
+.katex .mbin,
+.katex .mrel,
+.katex .mopen,
+.katex .mclose,
+.katex .mpunct,
+.katex .minner {
+  color: inherit;
+}

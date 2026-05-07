@@ -1,0 +1,80 @@
+.prose {
+  > * + * { margin-top: var(--space-4); }
+
+  // Lists
+  ul, ol {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  li + li { margin-top: var(--space-1); }
+
+  // Code blocks
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: var(--space-4) var(--space-6);
+    overflow-x: auto;
+    line-height: 1.6;
+    margin: var(--space-6) 0;
+
+    code {
+      background: none;
+      padding: 0;
+      font-size: 0.875rem;
+    }
+  }
+
+  // Inline code
+  :not(pre) > code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    font-size: 0.875em;
+  }
+
+  // Tables
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-6) 0;
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+
+  th {
+    background: var(--surface);
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--surface);
+  }
+
+  // Images
+  img {
+    max-width: 100%;
+    border-radius: 4px;
+    display: block;
+    margin: var(--space-6) auto;
+  }
+
+  // Definition list
+  dl { margin: var(--space-4) 0; }
+  dt { font-weight: 600; }
+  dd { margin-left: var(--space-6); color: var(--muted); }
+
+  // Headings inside prose shouldn't have top margin if first child
+  > h1:first-child,
+  > h2:first-child,
+  > h3:first-child {
+    margin-top: 0;
+  }
+}

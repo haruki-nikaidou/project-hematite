@@ -1,0 +1,79 @@
+---
+import { getCollection, render } from 'astro:content';
+import CheckpointLayout from '../../../layouts/CheckpointLayout.astro';
+import { LOCALES } from '../../../lib/constants';
+import { splitEntryId } from '../../../content.config';
+import { buildDependents } from '../../../lib/graph';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import type { GetStaticPaths } from 'astro';
+import type { Locale } from '../../../lib/constants';
+import type { HematiteCache } from '../../../integrations/checkpoint-validator';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const entries = await getCollection('checkpoints');
+
+  // Load the cache to compute dependents and available langs
+  const cache: HematiteCache = JSON.parse(
+    readFileSync(join(process.cwd(), 'node_modules/.astro/hematite.json'), 'utf8'),
+  );
+
+  // Build dependents per lang
+  const dependentMaps = new Map<string, Map<string, string[]>>();
+  for (const locale of LOCALES) {
+    const nodes = new Map(Object.entries(cache.langs[locale].nodes));
+    dependentMaps.set(locale, buildDependents(nodes));
+  }
+
+  // Build lookup: cpId -> set of available langs
+  const availLangs = new Map<string, Set<string>>();
+  for (const entry of entries) {
+    const parsed = splitEntryId(entry.id);
+    if (!parsed) continue;
+    const { lang, cpId } = parsed;
+    if (!availLangs.has(cpId)) availLangs.set(cpId, new Set());
+    availLangs.get(cpId)!.add(lang);
+  }
+
+  return entries
+    .map((entry) => {
+      const parsed = splitEntryId(entry.id);
+      if (!parsed) return null;
+      const { lang, cpId } = parsed;
+      const depMap = dependentMaps.get(lang)!;
+      const dependents = depMap.get(cpId) ?? [];
+      const available = [...(availLangs.get(cpId) ?? new Set([lang]))].sort();
+
+      return {
+        params: { lang, slug: cpId },
+        props: {
+          entry,
+          lang: lang as Locale,
+          cpId,
+          dependents,
+          availableLangs: available,
+        },
+      };
+    })
+    .filter((x): x is NonNullable<typeof x> => x !== null);
+};
+
+const { entry, lang, cpId, dependents, availableLangs } = Astro.props;
+const { Content } = await render(entry);
+const { title, summary, prerequisites, aliases, tags, updated } = entry.data;
+---
+
+<CheckpointLayout
+  {lang}
+  {cpId}
+  {title}
+  description={summary}
+  level={cpId.split('/')[0]}
+  {prerequisites}
+  {dependents}
+  {availableLangs}
+  {tags}
+  updated={updated?.toISOString().split('T')[0]}
+>
+  <Content />
+</CheckpointLayout>
