@@ -4,6 +4,7 @@ import svelte from '@astrojs/svelte';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import pagefind from 'astro-pagefind';
+import icon from 'astro-icon';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import checkpointValidator from './src/integrations/checkpoint-validator.ts';
@@ -29,6 +30,7 @@ export default defineConfig({
       },
     }),
     pagefind(),
+    icon(),
     checkpointValidator(),
   ],
   i18n: {

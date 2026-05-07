@@ -2,6 +2,7 @@
   import type { PagefindSearchResult } from '/pagefind/pagefind.js';
   import { t } from '../lib/i18n';
   import type { Locale } from '../lib/constants';
+  import Icon from '@iconify/svelte';
 
   let { lang }: { lang: Locale } = $props();
 
@@ -70,7 +71,9 @@
 
 <div class="search-wrap">
   <div class="search-input-row">
-    <span class="search-icon" aria-hidden="true">⌕</span>
+    <span class="search-icon" aria-hidden="true">
+      <Icon icon="heroicons:magnifying-glass" width="1rem" height="1rem" />
+    </span>
     <input
       type="search"
       class="search-input"
@@ -84,9 +87,11 @@
       spellcheck={false}
     />
     {#if loading}
-      <span class="search-spinner" aria-hidden="true">⋯</span>
+      <span class="search-spinner" aria-hidden="true">
+        <Icon icon="heroicons:arrow-path" width="1rem" height="1rem" />
+      </span>
     {:else if query}
-      <button class="search-clear" onclick={clear} aria-label="Clear search" tabindex="-1">✕</button>
+      <button class="search-clear" onclick={clear} aria-label="Clear search" tabindex="-1"><Icon icon="heroicons:x-mark" width="1rem" height="1rem" /></button>
     {/if}
   </div>
 
@@ -129,9 +134,11 @@
   }
 
   .search-icon {
+    display: flex;
+    align-items: center;
     color: var(--muted);
-    font-size: 1.1rem;
     padding-right: 0.25rem;
+    flex-shrink: 0;
     user-select: none;
   }
 
@@ -154,11 +161,19 @@
     background: none;
     border: none;
     color: var(--muted);
-    font-size: 0.85rem;
     padding: 0.2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .search-spinner {
+    animation: spin 1s linear infinite;
   }
 
   .search-dropdown {

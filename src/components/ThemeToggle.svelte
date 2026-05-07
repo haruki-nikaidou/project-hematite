@@ -1,6 +1,7 @@
 <script lang="ts">
   import { t } from '../lib/i18n';
   import type { Locale } from '../lib/constants';
+  import Icon from '@iconify/svelte';
 
   let { lang }: { lang: Locale } = $props();
 
@@ -25,11 +26,11 @@
   }
 
   const label = $derived(t(lang, 'theme.toggle'));
-  const icon = $derived(theme === 'dark' ? '☀' : '☾');
+  const iconName = $derived(theme === 'dark' ? 'heroicons:sun' : 'heroicons:moon');
 </script>
 
 <button class="theme-toggle" onclick={toggle} title={label} aria-label={label}>
-  <span class="icon">{icon}</span>
+  <Icon icon={iconName} width="1.1rem" height="1.1rem" />
 </button>
 
 <style>
@@ -54,7 +55,4 @@
     }
   }
 
-  .icon {
-    pointer-events: none;
-  }
 </style>
