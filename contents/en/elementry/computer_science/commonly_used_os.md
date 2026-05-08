@@ -23,9 +23,9 @@ More concretely, an operating system does three main jobs:
 
 Without an OS, your computer would just be an expensive pile of silicon and plastic that does nothing when you press the power button.
 
----
+## Commonly Used Operating Systems
 
-## Windows
+### Windows
 
 **Made by:** Microsoft  
 **First released:** 1985  
@@ -33,25 +33,23 @@ Without an OS, your computer would just be an expensive pile of silicon and plas
 
 Windows is by far the most widely used desktop operating system in the world. If you've ever used a school computer, a library computer, or a family PC, there's a very good chance it was running Windows.
 
-### What makes Windows recognizable?
+#### What makes Windows recognizable?
 
 - **The Start Menu** — that button in the bottom-left corner (or center in Windows 11) that opens a launcher for all your apps.
 - **The taskbar** — the bar at the bottom showing your open apps and system tray.
 - **File Explorer** — the app you use to browse your files and folders.
 
-### Why do people use Windows?
+#### Why do people use Windows?
 
 - **Huge software compatibility** — almost every piece of software ever written runs on Windows. Games, creative tools, business apps — you name it.
 - **Wide hardware support** — Windows runs on laptops and desktops made by hundreds of different manufacturers: Dell, HP, ASUS, Lenovo, and more.
 - **Familiar to most people** — because it's so common, most people already know how to use it.
 
-### Any downsides?
+#### Any downsides?
 
 Windows is sometimes criticized for being more prone to viruses if not maintained properly, and it can feel cluttered with pre-installed apps you never asked for. It also requires a license (though most PCs come with it included).
 
----
-
-## macOS
+### macOS
 
 **Made by:** Apple  
 **First released:** 2001  
@@ -59,33 +57,31 @@ Windows is sometimes criticized for being more prone to viruses if not maintaine
 
 macOS is the operating system that runs on Apple's Mac computers — MacBooks, Mac Minis, iMac desktops, and Mac Studios. It's known for its clean, polished design and tight integration with Apple's ecosystem.
 
-### What makes macOS recognizable?
+#### What makes macOS recognizable?
 
 - **The Dock** — a row of app icons sitting at the bottom (or side) of the screen, always within reach.
 - **The Menu Bar** — a thin bar at the very top of the screen that changes depending on which app you're using.
 - **Spotlight Search** — press `⌘ Space` and a search bar pops up. You can launch apps, search files, do math, and more — all without touching the mouse.
 
-### Why do people use macOS?
+#### Why do people use macOS?
 
 - **Smooth design** — macOS is famous for looking and feeling polished. Animations are smooth, fonts are crisp, and the whole thing feels intentional.
 - **Great for creative work** — video editors, musicians, designers, and developers tend to love Macs. Apps like Final Cut Pro and Logic Pro are macOS-exclusive.
 - **Apple ecosystem** — if you also have an iPhone or iPad, your Mac works seamlessly with them. You can answer iPhone calls on your Mac, copy something on your phone and paste it on your laptop, and more.
 - **Unix-based under the hood** — macOS is built on a Unix foundation, which makes it popular among developers who appreciate a powerful terminal.
 
-### Any downsides?
+#### Any downsides?
 
 macOS only runs on Apple hardware, which is generally more expensive than comparable Windows machines. You also have less flexibility to customize the system, since Apple tightly controls the experience.
 
----
-
-## Linux
+### Linux
 
 **Made by:** The open-source community (originally started by Linus Torvalds in 1991)  
 **Most common versions (called "distributions"):** Ubuntu, Fedora, Debian, Arch Linux
 
 Linux is different from Windows and macOS in a fundamental way: it's **open source**. That means anyone can look at its code, modify it, and redistribute it — for free. Because of this, Linux comes in many flavors called **distributions** (or "distros"), each with a different look, feel, and purpose.
 
-### What makes Linux recognizable?
+#### What makes Linux recognizable?
 
 That's the tricky part — Linux doesn't have one single look. Some distros look like Windows, some look like macOS, and some are completely unique. The common thread is that Linux gives you a lot more control over your system than the others.
 
@@ -94,7 +90,7 @@ Most Linux distros do share:
 - A **terminal** — a text-based way to control your computer, which Linux users tend to use heavily.
 - A **package manager** — a built-in app store-like tool for installing software from the command line.
 
-### Why do people use Linux?
+#### Why do people use Linux?
 
 - **It's free** — no license fees, ever.
 - **Highly customizable** — you can make it look and behave almost any way you want.
@@ -102,11 +98,9 @@ Most Linux distros do share:
 - **Beloved by developers and engineers** — most web servers, cloud systems, and supercomputers run Linux. Learning it early is a big career advantage.
 - **Privacy-friendly** — Linux doesn't collect your data the way Windows or macOS might.
 
-### Any downsides?
+#### Any downsides?
 
 Linux has a steeper learning curve. Some popular software (like Microsoft Office or Adobe Photoshop) doesn't officially support Linux, though workarounds exist. If you just want something that "works out of the box," Windows or macOS might be easier to start with.
-
----
 
 ## Comparing the Three
 
@@ -119,7 +113,6 @@ Linux has a steeper learning curve. Some popular software (like Microsoft Office
 | **Best for** | Gaming, general use | Creative work, Apple users | Developers, privacy-focused users |
 | **Open source?** | No | No | Yes |
 
----
 
 ## Wait — Your Phone Has an OS Too
 
@@ -146,8 +139,6 @@ You're using iOS every time you tap the home button, swipe between apps, or open
 ### Why don't people "feel" the mobile OS as much?
 
 On a desktop, the OS is very visible — you see the desktop, the taskbar, the file system. On a phone, the experience is designed to feel more like a stream of apps than a "computer." The OS hides itself. But it's still doing the same fundamental job: managing hardware, running apps, and giving you an interface.
-
----
 
 ## Summary
 
