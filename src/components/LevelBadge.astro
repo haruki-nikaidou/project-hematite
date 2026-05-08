@@ -1,11 +1,16 @@
 ---
-import { LEVEL_LABELS, CATEGORY_LABELS, LEVELS, CATEGORIES } from '../lib/constants';
-import type { Locale } from '../lib/constants';
+import {
+    LEVEL_LABELS,
+    CATEGORY_LABELS,
+    LEVELS,
+    CATEGORIES,
+} from "../lib/constants";
+import type { Locale } from "../lib/constants";
 
 interface Props {
-  level: string;
-  lang: Locale;
-  small?: boolean;
+    level: string;
+    lang: Locale;
+    small?: boolean;
 }
 
 const { level, small = false } = Astro.props;
@@ -14,62 +19,128 @@ const isLevel = (LEVELS as readonly string[]).includes(level);
 const isCategory = (CATEGORIES as readonly string[]).includes(level);
 
 const label = isLevel
-  ? LEVEL_LABELS[level as keyof typeof LEVEL_LABELS]
-  : isCategory
-    ? CATEGORY_LABELS[level as keyof typeof CATEGORY_LABELS]
-    : level;
+    ? LEVEL_LABELS[level as keyof typeof LEVEL_LABELS]
+    : isCategory
+      ? CATEGORY_LABELS[level as keyof typeof CATEGORY_LABELS]
+      : level;
 ---
 
-<span class:list={['level-badge', `level-${level}`, { small }]}>
-  {label}
+<span class:list={["level-badge", `level-${level}`, { small }]}>
+    {label}
 </span>
 
 <style lang="scss">
-  .level-badge {
-    display: inline-block;
-    padding: 0.15em 0.6em;
-    border-radius: 3px;
-    font-size: 0.75rem;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    white-space: nowrap;
-    vertical-align: middle;
+    .level-badge {
+        display: inline-block;
+        padding: 0.15em 0.6em;
+        border-radius: 3px;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        white-space: nowrap;
+        vertical-align: middle;
 
-    &.small {
-      font-size: 0.65rem;
-      padding: 0.1em 0.4em;
+        &.small {
+            font-size: 0.65rem;
+            padding: 0.1em 0.4em;
+        }
     }
-  }
 
-  .level-elementry   { border-color: #7aad7a; color: #5a8d5a; }
-  .level-basis       { border-color: #7a9fad; color: #5a7f8d; }
-  .level-essential   { border-color: var(--active); color: var(--active); }
-  .level-advanced    { border-color: #ad7a7a; color: #8d5a5a; }
-  .level-cutting-edge { border-color: #9d7aad; color: #7d5a8d; }
-  .level-tricks      { border-color: #ada07a; color: #8d805a; }
-  .level-proof       { border-color: #7aadad; color: #5a8dad; }
-  .level-homework    { border-color: #ad9d7a; color: #8d7d5a; }
-
-  :root[data-theme='dark'] {
-    .level-elementry   { border-color: #5a8d5a; color: #8dbf8d; }
-    .level-basis       { border-color: #5a7f8d; color: #8db0bf; }
-    .level-essential   { border-color: var(--active); color: var(--active); }
-    .level-advanced    { border-color: #8d5a5a; color: #bf8d8d; }
-    .level-cutting-edge { border-color: #7d5a8d; color: #af8dbf; }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme='light']) {
-      .level-elementry   { border-color: #5a8d5a; color: #8dbf8d; }
-      .level-basis       { border-color: #5a7f8d; color: #8db0bf; }
-      .level-essential   { border-color: var(--active); color: var(--active); }
-      .level-advanced    { border-color: #8d5a5a; color: #bf8d8d; }
-      .level-cutting-edge { border-color: #7d5a8d; color: #af8dbf; }
+    .level-elementry {
+        border-color: #7aad7a;
+        color: #5a8d5a;
     }
-  }
+    .level-basis {
+        border-color: #7a9fad;
+        color: #5a7f8d;
+    }
+    .level-essential {
+        border-color: var(--active);
+        color: var(--active);
+    }
+    .level-advanced {
+        border-color: #ad7a7a;
+        color: #8d5a5a;
+    }
+    .level-cutting-edge {
+        border-color: #9d7aad;
+        color: #7d5a8d;
+    }
+    .level-tricks {
+        border-color: #ada07a;
+        color: #8d805a;
+    }
+    .level-proof {
+        border-color: #7aadad;
+        color: #5a8dad;
+    }
+    .level-homework {
+        border-color: #ad9d7a;
+        color: #8d7d5a;
+    }
+    .level-side-lines {
+        border-color: #999999;
+        color: #777777;
+    }
+
+    :root[data-theme="dark"] {
+        .level-elementry {
+            border-color: #5a8d5a;
+            color: #8dbf8d;
+        }
+        .level-basis {
+            border-color: #5a7f8d;
+            color: #8db0bf;
+        }
+        .level-essential {
+            border-color: var(--active);
+            color: var(--active);
+        }
+        .level-advanced {
+            border-color: #8d5a5a;
+            color: #bf8d8d;
+        }
+        .level-cutting-edge {
+            border-color: #7d5a8d;
+            color: #af8dbf;
+        }
+        .level-side-lines {
+            border-color: #888888;
+            color: #aaaaaa;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            .level-elementry {
+                border-color: #5a8d5a;
+                color: #8dbf8d;
+            }
+            .level-basis {
+                border-color: #5a7f8d;
+                color: #8db0bf;
+            }
+            .level-essential {
+                border-color: var(--active);
+                color: var(--active);
+            }
+            .level-advanced {
+                border-color: #8d5a5a;
+                color: #bf8d8d;
+            }
+            .level-cutting-edge {
+                border-color: #7d5a8d;
+                color: #af8dbf;
+            }
+            .level-side-lines {
+                border-color: #888888;
+                color: #aaaaaa;
+            }
+        }
+    }
 </style>

@@ -1,136 +1,150 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Search from '../../components/Search.svelte';
-import LevelBadge from '../../components/LevelBadge.astro';
-import { LOCALES, LEVELS, CATEGORIES, LEVEL_LABELS, CATEGORY_LABELS } from '../../lib/constants';
-import { indexUrl } from '../../lib/paths';
-import type { Locale } from '../../lib/constants';
-import type { GetStaticPaths } from 'astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Search from "../../components/Search.svelte";
+import LevelBadge from "../../components/LevelBadge.astro";
+import {
+    LOCALES,
+    LEVELS,
+    CATEGORIES,
+    LEVEL_LABELS,
+    CATEGORY_LABELS,
+} from "../../lib/constants";
+import { indexUrl } from "../../lib/paths";
+import type { Locale } from "../../lib/constants";
+import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths: GetStaticPaths = () => {
-  return LOCALES.map((lang) => ({ params: { lang } }));
+    return LOCALES.map((lang) => ({ params: { lang } }));
 };
 
 const { lang } = Astro.params as { lang: Locale };
 
 const levelDescriptions: Record<string, Record<string, string>> = {
-  en: {
-    elementry: 'Foundational concepts every Rust developer should know.',
-    basis: 'Core computer science and mathematical foundations.',
-    essential: 'Topics essential for writing idiomatic Rust.',
-    advanced: 'Deep dives into complex systems and patterns.',
-    'cutting-edge': 'The latest research and emerging techniques.',
-    tricks: 'Practical tips and idioms for everyday coding.',
-    proof: 'Formal proofs and theoretical underpinnings.',
-    homework: 'Exercises and challenges to reinforce learning.',
-  },
-  ja: {
-    elementry: 'すべてのRust開発者が知るべき基礎概念。',
-    basis: 'コンピュータサイエンスと数学の基礎。',
-    essential: '慣用的なRustを書くための必須トピック。',
-    advanced: '複雑なシステムとパターンの深掘り。',
-    'cutting-edge': '最新の研究と新興技術。',
-    tricks: '日常的なコーディングの実践的なヒントとイディオム。',
-    proof: '形式的な証明と理論的な基盤。',
-    homework: '学習を強化するための演習と課題。',
-  },
+    en: {
+        elementry: "Foundational concepts every Rust developer should know.",
+        basis: "Core computer science and mathematical foundations.",
+        essential: "Topics essential for writing idiomatic Rust.",
+        advanced: "Deep dives into complex systems and patterns.",
+        "cutting-edge": "The latest research and emerging techniques.",
+        tricks: "Practical tips and idioms for everyday coding.",
+        proof: "Formal proofs and theoretical underpinnings.",
+        homework: "Exercises and challenges to reinforce learning.",
+        "side-lines": "Worth knowing but not critical.",
+    },
+    ja: {
+        elementry: "すべてのRust開発者が知るべき基礎概念。",
+        basis: "コンピュータサイエンスと数学の基礎。",
+        essential: "慣用的なRustを書くための必須トピック。",
+        advanced: "複雑なシステムとパターンの深掘り。",
+        "cutting-edge": "最新の研究と新興技術。",
+        tricks: "日常的なコーディングの実践的なヒントとイディオム。",
+        proof: "形式的な証明と理論的な基盤。",
+        homework: "学習を強化するための演習と課題。",
+        "side-lines": "知っておくと良いが重要ではないもの。",
+    },
 };
 
 const desc = levelDescriptions[lang] ?? levelDescriptions.en;
 ---
 
 <BaseLayout title="Project Hematite" lang={lang}>
-  <div class="home-wrap">
-    <header class="home-hero" data-pagefind-ignore>
-      <h1 class="home-title">
-        Project <span class="accent">Hematite</span>
-      </h1>
-      <p class="home-tagline">
-        {lang === 'ja'
-          ? 'Rust開発者のためのオープン教育サイト'
-          : 'Open education for future Rust developers'}
-      </p>
-      <div class="home-search">
-        <Search {lang} client:load />
-      </div>
-    </header>
-
-    <section class="home-section">
-      <h2 class="section-label">Levels</h2>
-      <div class="card-grid">
-        {LEVELS.map((level) => (
-          <a href={indexUrl(lang, level)} class="card">
-            <div class="card-title">
-              <LevelBadge {level} {lang} />
+    <div class="home-wrap">
+        <header class="home-hero" data-pagefind-ignore>
+            <h1 class="home-title">
+                Project <span class="accent">Hematite</span>
+            </h1>
+            <p class="home-tagline">
+                {
+                    lang === "ja"
+                        ? "Rust開発者のためのオープン教育サイト"
+                        : "Open education for future Rust developers"
+                }
+            </p>
+            <div class="home-search">
+                <Search {lang} client:load />
             </div>
-            <p class="card-desc">{desc[level]}</p>
-          </a>
-        ))}
-      </div>
-    </section>
+        </header>
 
-    <section class="home-section">
-      <h2 class="section-label">Categories</h2>
-      <div class="card-grid">
-        {CATEGORIES.map((cat) => (
-          <a href={indexUrl(lang, cat)} class="card">
-            <div class="card-title">
-              <LevelBadge level={cat} {lang} />
+        <section class="home-section">
+            <h2 class="section-label">Levels</h2>
+            <div class="card-grid">
+                {
+                    LEVELS.map((level) => (
+                        <a href={indexUrl(lang, level)} class="card">
+                            <div class="card-title">
+                                <LevelBadge {level} {lang} />
+                            </div>
+                            <p class="card-desc">{desc[level]}</p>
+                        </a>
+                    ))
+                }
             </div>
-            <p class="card-desc">{desc[cat]}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-  </div>
+        </section>
+
+        <section class="home-section">
+            <h2 class="section-label">Categories</h2>
+            <div class="card-grid">
+                {
+                    CATEGORIES.map((cat) => (
+                        <a href={indexUrl(lang, cat)} class="card">
+                            <div class="card-title">
+                                <LevelBadge level={cat} {lang} />
+                            </div>
+                            <p class="card-desc">{desc[cat]}</p>
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+    </div>
 </BaseLayout>
 
 <style lang="scss">
-  @use '../../styles/layout';
+    @use "../../styles/layout";
 
-  .home-wrap {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 var(--space-6) var(--space-16);
-  }
+    .home-wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 var(--space-6) var(--space-16);
+    }
 
-  .home-hero {
-    text-align: center;
-    padding: var(--space-16) 0 var(--space-12);
-  }
+    .home-hero {
+        text-align: center;
+        padding: var(--space-16) 0 var(--space-12);
+    }
 
-  .home-title {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    margin: 0 0 var(--space-4);
-    letter-spacing: -0.03em;
-  }
+    .home-title {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        margin: 0 0 var(--space-4);
+        letter-spacing: -0.03em;
+    }
 
-  .accent {
-    color: var(--active);
-  }
+    .accent {
+        color: var(--active);
+    }
 
-  .home-tagline {
-    font-size: 1.15rem;
-    color: var(--muted);
-    margin: 0 0 var(--space-8);
-  }
+    .home-tagline {
+        font-size: 1.15rem;
+        color: var(--muted);
+        margin: 0 0 var(--space-8);
+    }
 
-  .home-search {
-    max-width: 520px;
-    margin: 0 auto;
-  }
+    .home-search {
+        max-width: 520px;
+        margin: 0 auto;
+    }
 
-  .home-section {
-    margin-top: var(--space-12);
-  }
+    .home-section {
+        margin-top: var(--space-12);
+    }
 
-  .section-label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin: 0 0 var(--space-6);
-    border: none;
-    padding: 0;
-  }
+    .section-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        margin: 0 0 var(--space-6);
+        border: none;
+        padding: 0;
+    }
 </style>
