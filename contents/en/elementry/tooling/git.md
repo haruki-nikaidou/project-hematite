@@ -69,7 +69,7 @@ This method works, but it gets tedious. Typing or pasting a token every time you
 
 **SSH** is what most developers use day-to-day. Instead of a token, it relies on a **key pair**: a private key that stays on your machine and a public key that you register once with the hosting platform. When Git connects to the remote, your machine proves its identity using the private key automatically — no typing required.
 
-Generating an SSH key pair and registering it with a platform is covered in [Introduce to SSH](/en/cp/elementry/tooling/ssh/). Once that's done, you clone using the SSH URL rather than the HTTPS one:
+Generating an SSH key pair and registering it with a platform is covered in [Introduction to SSH](/en/cp/elementry/tooling/ssh/). Once that's done, you clone using the SSH URL rather than the HTTPS one:
 
 ```/dev/null/git-clone-ssh.sh
 # HTTPS — works, but prompts for your token on every push
