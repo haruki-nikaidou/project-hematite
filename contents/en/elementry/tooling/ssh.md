@@ -1,9 +1,8 @@
 ---
-title: Introduce to Git
+title: Introduce to SSH
 summary: ""
 prerequisites: 
   - elementry/tooling/shell
-  - elementry/tooling/ssh
 aliases: []
 tags: ["Introduction"]
 updated: 2026-05-09
