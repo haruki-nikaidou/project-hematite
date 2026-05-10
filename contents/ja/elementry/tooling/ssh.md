@@ -1,0 +1,184 @@
+---
+title: SSH 入門
+summary: "SSH を初心者向けに紹介する — SSH とは何か、公開鍵認証の仕組み、SSH キーペアの生成方法と GitHub/GitLab またはリモートサーバーへの登録方法を解説し、パスワードなしで安全に接続できるようにする。"
+prerequisites: 
+  - elementry/tooling/shell
+aliases: []
+tags: ["Introduction", "Security", "Networking"]
+updated: 2026-05-09
+---
+
+GitHub にコードをプッシュするとき、リモートサーバーにログインするとき、デプロイを自動化するとき — 毎回静かに重要な仕事をしているテクノロジーがある：**SSH** だ。一度セットアップすれば、開発者としてのキャリア全体にわたって利益をもたらす。
+
+## SSH とは何か
+
+**SSH** は *Secure Shell*（セキュアシェル）の略だ。リモートマシンのコマンドラインセッションを、目の前に座っているかのように開くためのネットワークプロトコルだ — ただし接続のすべてのバイトが暗号化されている。
+
+SSH が存在する前は、`telnet` のようなツールがパスワードを含むすべてをネットワーク上にプレーンテキストで送信していた。トラフィックを監視していれば誰でも読めた。SSH はそれを強力な暗号技術で置き換えて、誰かがデータを傍受しても読んだり改ざんしたりできないようにした。
+
+SSH 接続を開くと二つのことが自動的に起きる：
+
+1. 接続が**暗号化**され、ネットワークを盗聴している誰かも送受信を見ることができない。
+2. 両側が**互いの身元を確認**し、サーバーのふりをした偽物に誤って接続することを防ぐ。
+
+## パスワードと SSH キー
+
+身元を証明する最も馴染みのある方法は**パスワード**だ。SSH はパスワードをサポートするが、実際のデメリットがある：
+
+- 接続するたびに入力しなければならない。
+- インターネットに公開されたサーバーは常に自動化された攻撃を受けており、毎時数千の一般的なパスワードを試している。
+- パスワードはそれを選んだ人間と同じ程度にしか強くない。
+
+はるかに優れた代替手段が**公開鍵認証**（public-key authentication）だ。GitHub、GitLab、ほとんどのプロフェッショナルなサーバーが使う標準的な方法で、一度セットアップすれば一切タイプが不要になる。
+
+## SSH キーの仕組み
+
+公開鍵認証は**キーペア**（key pair）と呼ばれる二つのリンクされたファイルの組の上に作られている。
+
+| ファイル | 役割 | 誰が見る |
+|------|------|-------------|
+| **秘密鍵**（private key）| 身元を証明する | 自分だけ。このファイルは絶対に共有しない。 |
+| **公開鍵**（public key）| サーバーが自分を認識するために使う | 共有して安全。アクセスしたいすべてのサーバーに置く。 |
+
+南京錠と鍵の例えで考えると分かりやすい。自分のために何かを安全にしてほしい人全員に南京錠（公開鍵）のコピーを渡す。鍵（秘密鍵）は自分だけが持つ。サーバーは公開鍵でチャレンジをロックする。それを開けられるのは秘密鍵だけだ。秘密鍵はネットワークを通じて移動しない — 証明はそれがマシンを離れることなく機能する。
+
+## SSH キーペアを生成する
+
+ターミナルを開いて実行する：
+
+```/dev/null/ssh-keygen.sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+- `-t ed25519` は **Ed25519** アルゴリズムを選択する — 新しいキーに対するモダンで推奨される選択肢だ。
+- `-C "your_email@example.com"` は公開鍵にコメントを追加して、どのキーがどの身元に属するかを覚えられるようにする。自分のメールアドレスに置き換える。
+
+コマンドはいくつかのことを聞いてくる：
+
+```/dev/null/ssh-keygen-session.txt
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/you/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/you/.ssh/id_ed25519
+Your public key has been saved in /home/you/.ssh/id_ed25519.pub
+```
+
+**ファイルの場所** — Enter を押してデフォルトのパス（`~/.ssh/id_ed25519`）を受け入れる。それが標準的な場所で、追加の設定なしで動く。
+
+**パスフレーズ**（passphrase）— これはディスク上で秘密鍵を暗号化するオプションのパスワードだ。誰かがノートパソコンを盗んでも、パスフレーズなしではキーを使えない。設定を強くおすすめする。ほとんどの OS はセッションごとに一度入力するとそれを記憶してくれる。
+
+これで二つの新しいファイルができた：
+
+```/dev/null/ls-ssh.sh
+~/.ssh/id_ed25519      # 秘密鍵 — 慎重に守る
+~/.ssh/id_ed25519.pub  # 公開鍵 — 共有して安全
+```
+
+公開鍵はいつでも表示できる：
+
+```/dev/null/cat-pubkey.sh
+cat ~/.ssh/id_ed25519.pub
+# 次のような一行の長い行が表示される：
+# ssh-ed25519 AAAA...多くの文字... your_email@example.com
+```
+
+## 公開鍵を GitHub や GitLab に登録する
+
+ホスティングプラットフォームに公開鍵を登録すると、パスワードなしで `clone`、`push`、`pull` できるようになる。
+
+1. 公開鍵を表示してクリップボードに全体をコピーする：
+
+   ```/dev/null/print-pubkey.sh
+   cat ~/.ssh/id_ed25519.pub
+   ```
+
+2. **GitHub** の場合：**Settings → SSH and GPG keys → New SSH key** に進む。  
+   **GitLab** の場合：**Preferences → SSH Keys → Add new key** に進む。
+
+3. 公開鍵を *Key* フィールドにペーストし、わかりやすいタイトル（たとえば「personal laptop」）を付けて保存する。
+
+これだけだ。プラットフォームが公開鍵を保存する。SSH URL を使って接続すると、マシンが対応する秘密鍵を使ってバックグラウンドで静かに身元を証明する。
+
+動作確認するには：
+
+```/dev/null/ssh-test-github.sh
+ssh -T git@github.com
+# 期待するレスポンス：
+# Hi your-username! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+```/dev/null/ssh-test-gitlab.sh
+ssh -T git@gitlab.com
+# 期待するレスポンス：
+# Welcome to GitLab, @your-username!
+```
+
+どちらかのメッセージが表示されれば、キーが正しく認識されている。
+
+## 公開鍵をリモート Linux サーバーに追加する
+
+Linux サーバーへのパスワードベースのアクセスがあってキーベースの認証に切り替えたい場合は `ssh-copy-id` を使う：
+
+```/dev/null/ssh-copy-id.sh
+ssh-copy-id user@hostname
+# user をサーバー上のユーザー名に置き換える
+# hostname をサーバーの IP アドレスまたはドメイン名に置き換える
+```
+
+このコマンドは最後に一度パスワードを使って接続し、リモートマシンの `~/.ssh/authorized_keys` に公開鍵を追記する。その後、SSH はキーを自動的に使い、パスワードプロンプトが消える。
+
+`ssh-copy-id` がシステムで使えない場合は手動で同じことができる。まずローカルで公開鍵を表示して、サーバーに追加する：
+
+```/dev/null/manual-authorized-keys.sh
+# リモートサーバーで、ディレクトリとファイルが存在しない場合は作成する：
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+# authorized_keys の新しい行に公開鍵をペーストする：
+echo "ssh-ed25519 AAAA...完全な公開鍵..." >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+
+`chmod` コマンドは重要だ：SSH はパーミッションが広すぎるキーファイルを使うことを拒否する。
+
+## リモートマシンに接続する
+
+キーを置いたら、接続はコマンド一つだ：
+
+```/dev/null/ssh-connect.sh
+ssh user@hostname
+# 例：ssh alice@203.0.113.42
+# またはドメイン名で：ssh alice@dev.example.com
+```
+
+キーを生成するときにパスフレーズを設定した場合は、SSH が一度それを求める。その後、リモートマシン上でシェルが手に入る。入力するものすべてがそこで実行され、自分のコンピューターではない。
+
+セッションを終了するには `exit` と入力するか **Ctrl+D** を押す。
+
+## 設定ファイルで接続を楽にする
+
+毎回 `ssh alice@203.0.113.42` と入力するのはすぐ飽きる。接続の詳細を `~/.ssh/config` に保存して短いニックネームを使えるようになる：
+
+```/dev/null/ssh-config
+Host myserver
+    HostName 203.0.113.42
+    User alice
+    IdentityFile ~/.ssh/id_ed25519
+```
+
+これで `ssh myserver` だけで十分だ。`Host` ブロックは好きなだけ追加でき、サーバーやサービスごとに一つずつ設定できる。
+
+## まとめ
+
+- **SSH**（Secure Shell）はリモートマシン上で暗号化された、認証済みのコマンドラインセッションを開くプロトコルだ。
+- **公開鍵認証**はパスワードをキーペアに置き換える：**秘密鍵**（自分だけが持つ、絶対に共有しない）と**公開鍵**（アクセスしたいすべてのサーバーに置く）。
+- `ssh-keygen -t ed25519 -C "your_email@example.com"` でキーペアを生成する。デフォルトパスを受け入れてパスフレーズを設定する。
+- 秘密鍵は `~/.ssh/id_ed25519` に、公開鍵は `~/.ssh/id_ed25519.pub` にある。
+- **GitHub** や **GitLab** の SSH キー設定ページで公開鍵を登録する。`ssh -T git@github.com`（または `git@gitlab.com`）で確認する。
+- `ssh-copy-id user@hostname` で Linux サーバーに公開鍵を追加するか、`~/.ssh/authorized_keys` に手動で追記する。
+- `ssh user@hostname` で任意のサーバーに接続する。定期的にアクセスするマシンのショートカットを保存するには `~/.ssh/config` を使う。
+
+## 次のステップ
+
+SSH が設定されたら、手間なくリモートのコードリポジトリとやりとりする準備ができた。次のチェックポイント [Git 入門](/en/cp/elementry/tooling/git/) では、Git が SSH を使ってコードをプッシュ・プルする方法と、変更を追跡して他の人と協力するために必要なすべてを学ぶ。
