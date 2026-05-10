@@ -5,7 +5,7 @@ prerequisites:
   - elementry/tooling/prepare_environment
 aliases: []
 tags: ["Practice", "Tooling"]
-updated: 2026-05-09
+updated: 2026-05-11
 ---
 
 Before you write a single line of code, you need a place to write it. That place is your **code editor** or **IDE** (Integrated Development Environment). Choosing the right one sets the tone for your entire development experience, so it's worth spending a few minutes understanding your options.
