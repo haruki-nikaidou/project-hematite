@@ -1,0 +1,13 @@
+{
+  "elementry":        { "en": "Elementary",      "ja": "入門" },
+  "basis":            { "en": "Basis",            "ja": "基礎" },
+  "computer_science": { "en": "Computer Science", "ja": "計算機科学" },
+  "math":             { "en": "Mathematics",      "ja": "数学" },
+  "tooling":          { "en": "Tooling",          "ja": "ツール" },
+  "analysis":         { "en": "Analysis",         "ja": "解析学" },
+  "set":              { "en": "Set Theory",       "ja": "集合論" },
+  "linear_algebra":   { "en": "Linear Algebra",   "ja": "線形代数学" },
+  "topology":         { "en": "Topology",         "ja": "位相論" },
+  "abstract_algebra": { "en": "Abstract Algebra", "ja": "抽象代数学" },
+  "zig":              { "en": "Zig",              "ja": "Zig" }
+}

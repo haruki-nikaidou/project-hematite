@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { LOCALES } from '../../../lib/constants';
 import { splitEntryId } from '../../../content.config';
 import { ancestorPrefixes } from '../../../lib/paths';
+import { segmentLabel } from '../../../lib/display';
 import type { GetStaticPaths } from 'astro';
 import type { Locale } from '../../../lib/constants';
 import type { GraphNode } from '../../../lib/graph';
@@ -72,7 +73,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         }
       }
 
-      const label = prefix.split('/').at(-1)!.replace(/-/g, ' ');
+      const label = segmentLabel(prefix.split('/').at(-1)!, locale as Locale);
 
       paths.push({
         params: { lang: locale, slug: prefix },
