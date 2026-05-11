@@ -92,7 +92,7 @@ Everything above — JavaScript, Java, Rust, Go, Swift, and the rest — shares 
 
 You don't "write a program" in SQL the way you'd write a program in Java or Rust. Instead, you ask questions:
 
-```/dev/null/example.sql#L1-5
+```sql
 -- "Give me the names of all users who signed up after January 1st, 2024"
 SELECT name
 FROM users

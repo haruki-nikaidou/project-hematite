@@ -26,7 +26,7 @@ Git は**バージョン管理システム**（version control system）だ — 
 
 最初のコミットをする前に、Git に自分が誰かを教える。作成したすべてのコミットに名前とメールアドレスを付けるので、他の人が各変更を誰がしたか見られる。
 
-```/dev/null/git-config.sh
+```bash
 git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
 ```
@@ -39,7 +39,7 @@ git config --global user.email "you@example.com"
 
 最も一般的な出発点は**クローン**（cloning）だ — 完全な履歴を含む既存のリポジトリをマシンにダウンロードする。
 
-```/dev/null/git-clone.sh
+```bash
 git clone https://github.com/some-user/some-project.git
 ```
 
@@ -49,7 +49,7 @@ git clone https://github.com/some-user/some-project.git
 
 最初からプロジェクトを始める場合は、プロジェクトフォルダに移動して実行する：
 
-```/dev/null/git-init.sh
+```bash
 git init
 ```
 
@@ -71,7 +71,7 @@ HTTPS の URL は上の `git clone` の例のようなものだ。HTTPS でプ�
 
 SSH キーペアの生成とプラットフォームへの登録は [SSH 入門](/en/cp/elementry/tooling/ssh/) でカバーしている。それが済んだら、HTTPS URL の代わりに SSH URL を使ってクローンする：
 
-```/dev/null/git-clone-ssh.sh
+```bash
 # HTTPS — 動くが、プッシュのたびにトークンを求められる
 git clone https://github.com/some-user/some-project.git
 
@@ -97,7 +97,7 @@ git clone git@github.com:some-user/some-project.git
 
 まず、次のコミットに含める変更を Git に伝える：
 
-```/dev/null/git-add.sh
+```bash
 git add main.rs    # 一つのファイルをステージ
 git add .          # 現在のフォルダのすべての変更したファイルをステージ
 ```
@@ -108,7 +108,7 @@ git add .          # 現在のフォルダのすべての変更したファイ�
 
 ステージされた内容に満足したら、何をしたかを説明する短いメッセージでコミットを作る：
 
-```/dev/null/git-commit.sh
+```bash
 git commit -m "Add greeting function"
 ```
 
@@ -118,14 +118,14 @@ git commit -m "Add greeting function"
 
 作業中に常に使う二つのコマンド：
 
-```/dev/null/git-status-log.sh
+```bash
 git status          # 変更したファイルとステージされているものを表示
 git log --oneline   # 最近のコミットのコンパクトな一覧を表示
 ```
 
 典型的な `git log --oneline` の出力は次のような感じだ：
 
-```/dev/null/git-log-output.txt
+```text
 a3f2c1e Add greeting function
 b8e0d4a Fix crash on empty input
 c12f90b Initial commit
@@ -139,7 +139,7 @@ c12f90b Initial commit
 
 ローカルにコミットした後、`git push` でそれらをリモートに送る：
 
-```/dev/null/git-push.sh
+```bash
 git push origin main
 ```
 
@@ -149,7 +149,7 @@ git push origin main
 
 チームメイトがコミットをプッシュしたら、`git pull` でそれをローカルコピーに取り込む：
 
-```/dev/null/git-pull.sh
+```bash
 git pull origin main
 ```
 
@@ -159,7 +159,7 @@ git pull origin main
 
 何かを適用する*前に*リモートで何が変わったか見たい場合は `git fetch` を使う：
 
-```/dev/null/git-fetch.sh
+```bash
 git fetch origin
 ```
 
@@ -173,20 +173,20 @@ git fetch origin
 
 ### ブランチを作って切り替える
 
-```/dev/null/git-switch-create.sh
+```bash
 git switch -c feature-login   # 新しいブランチを作ってそこに一度で切り替える
 ```
 
 または二つのステップで行う場合：
 
-```/dev/null/git-branch-two-steps.sh
+```bash
 git branch feature-login   # ブランチを作る
 git switch feature-login   # それに切り替える
 ```
 
 ### ブランチ一覧を表示する
 
-```/dev/null/git-branch-list.sh
+```bash
 git branch
 ```
 
@@ -196,7 +196,7 @@ git branch
 
 ブランチが他の人と共有できる状態になったら：
 
-```/dev/null/git-push-branch.sh
+```bash
 git push origin feature-login
 ```
 
@@ -208,7 +208,7 @@ git push origin feature-login
 
 **マージ**（merging）は一方のブランチの変更を別のブランチに統合する。更新したいブランチに切り替えて、そこに別のブランチをマージする：
 
-```/dev/null/git-merge.sh
+```bash
 git switch main
 git merge feature-login
 ```
@@ -219,7 +219,7 @@ Git は二つの履歴のラインを結びつける**マージコミット**（
 
 **リベース**（rebasing）はよりクリーンな線形の履歴を作る代替手段だ。マージコミットを作る代わりに、最初からそこで書いたかのようにコミットをターゲットブランチの上に再生する：
 
-```/dev/null/git-rebase.sh
+```bash
 git switch feature-login
 git rebase main
 ```

@@ -16,7 +16,7 @@ Every developer eventually has to write something — documentation, a README, a
 
 Here is a small taste:
 
-```/dev/null/hello.md#L1-6
+```markdown
 # My first note
 
 This is a **bold** idea and this is *italic*.
@@ -72,7 +72,7 @@ Now let's go through every important piece of Markdown syntax. All examples belo
 
 Start a line with one or more `#` characters followed by a space. The number of `#` signs sets the heading level, from `h1` (largest) down to `h6` (smallest).
 
-```/dev/null/headings.md#L1-6
+```markdown
 # Level 1 — the page title
 ## Level 2 — a main section
 ### Level 3 — a subsection
@@ -87,7 +87,7 @@ In practice, you will use `##` and `###` most often. Reserve `#` for the documen
 
 A **paragraph** is just one or more lines of text separated from the next paragraph by a blank line.
 
-```/dev/null/paragraphs.md#L1-7
+```markdown
 This is the first paragraph. It can span
 multiple lines in the source file — they
 will be joined into one paragraph when rendered.
@@ -102,7 +102,7 @@ If you want a hard line break *inside* a paragraph (like poetry), end the line w
 
 Wrap text in `**double asterisks**` for **bold**, and `*single asterisks*` for *italic*. You can combine them.
 
-```/dev/null/emphasis.md#L1-5
+```markdown
 This word is **bold**.
 This word is *italic*.
 This word is ***bold and italic***.
@@ -116,7 +116,7 @@ Use bold for key terms when you first introduce them. Use italics for subtle emp
 
 An **unordered list** uses `-`, `*`, or `+` as bullet markers. A **numbered list** uses digits followed by a period. You can nest lists by indenting with two or four spaces.
 
-```/dev/null/lists.md#L1-18
+```markdown
 ## Unordered list
 
 - Apples
@@ -145,7 +145,7 @@ Note that the actual numbers in an ordered list do not matter to the renderer. Y
 
 A **link** is written as `[visible text](URL)`. The text in square brackets is what the reader sees; the URL in parentheses is where they go.
 
-```/dev/null/links.md#L1-6
+```markdown
 Visit [the Rust website](https://www.rust-lang.org).
 
 For relative links inside a site:
@@ -158,7 +158,7 @@ You can also write a bare URL: <https://www.rust-lang.org>
 
 An **image** looks almost identical to a link, but starts with `!`.
 
-```/dev/null/images.md#L1-4
+```markdown
 ![A cute ferris the crab](https://rustacean.net/assets/rustacean-orig-noshadow.svg)
 
 ![Alt text is important for accessibility](./images/diagram.png)
@@ -172,7 +172,7 @@ Wrap a short snippet in **backticks** for inline code: `` `let x = 5;` `` render
 
 For a multi-line code block, use a fence of three backticks and include a language identifier for syntax highlighting.
 
-````/dev/null/code.md#L1-14
+````markdown
 Here is an inline example: `cargo build`.
 
 Here is a block example:
@@ -190,7 +190,7 @@ Code blocks preserve whitespace exactly, so indentation in your code stays intac
 
 Prefix a line with `>` to create a **blockquote** — useful for quoting someone else, highlighting a tip, or showing a warning.
 
-```/dev/null/blockquote.md#L1-7
+```markdown
 > The only way to learn a new programming language is by
 > writing programs in it.
 > — Dennis Ritchie
@@ -202,7 +202,7 @@ Prefix a line with `>` to create a **blockquote** — useful for quoting someone
 
 Three or more hyphens, asterisks, or underscores on their own line create a **horizontal rule** — a visual divider.
 
-```/dev/null/hr.md#L1-5
+```markdown
 Section one content here.
 
 ---
@@ -214,7 +214,7 @@ Section two content here.
 
 A **table** is drawn with pipe characters `|` and hyphens `-` for the header separator. Colons in the separator row control column alignment.
 
-```/dev/null/table.md#L1-9
+```markdown
 | Language | Year | Creator        |
 |----------|------|----------------|
 | C        | 1972 | Dennis Ritchie |
@@ -232,7 +232,7 @@ Keep tables narrow. If a cell needs several sentences of prose, a table is proba
 
 If you need to write a literal `*` or `#` without triggering formatting, put a backslash in front of it.
 
-```/dev/null/escaping.md#L1-3
+```markdown
 \*This is not italic.\*
 \# This is not a heading.
 Use a backslash before: \\ \` \* \_ \{ \} \[ \] \( \) \# \+ \- \. \!

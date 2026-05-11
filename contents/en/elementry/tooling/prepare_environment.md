@@ -25,7 +25,7 @@ Windows comes with two built-in shells: **Command Prompt** and **PowerShell**. W
 1. Open **PowerShell** or **Command Prompt** as Administrator (right-click the app → *Run as administrator*).
 2. Run the following command:
 
-```/dev/null/wsl-install.ps1
+```powershell
 wsl --install
 ```
 
@@ -47,7 +47,7 @@ macOS is built on Unix, so your terminal and shell are already in good shape. Wh
 1. Open **Terminal**. You can find it at `Applications → Utilities → Terminal`, or press `Cmd + Space`, type *Terminal*, and press Enter.
 2. Paste this command and press Enter:
 
-```/dev/null/brew-install.sh
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
@@ -56,7 +56,7 @@ macOS is built on Unix, so your terminal and shell are already in good shape. Wh
 
 Verify the installation worked:
 
-```/dev/null/brew-verify.sh
+```bash
 brew --version
 # Expected output: Homebrew 4.x.x
 ```
@@ -73,13 +73,13 @@ Most systems default to **Bash**. It's reliable, but **Zsh** (pronounced "Z shel
 
 First, install Zsh:
 
-```/dev/null/install-zsh.sh
+```bash
 sudo apt update && sudo apt install zsh -y
 ```
 
 Then make it your default shell:
 
-```/dev/null/chsh-zsh.sh
+```bash
 chsh -s $(which zsh)
 ```
 
@@ -91,7 +91,7 @@ Close and reopen your terminal. You're now running Zsh.
 
 Install it with:
 
-```/dev/null/install-omz.sh
+```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
@@ -112,14 +112,14 @@ Here's a quick reference:
 
 On **WSL/Ubuntu**, it's good practice to update your local package list before installing anything new:
 
-```/dev/null/apt-install.sh
+```bash
 sudo apt update
 sudo apt install <package-name>
 ```
 
 On **macOS**:
 
-```/dev/null/brew-install-package.sh
+```bash
 brew install <package-name>
 ```
 
@@ -131,19 +131,19 @@ You'll be using these commands constantly throughout this series. They're worth 
 
 On **WSL/Ubuntu**:
 
-```/dev/null/install-git-apt.sh
+```bash
 sudo apt install git -y
 ```
 
 On **macOS**:
 
-```/dev/null/install-git-brew.sh
+```bash
 brew install git
 ```
 
 Confirm it's installed:
 
-```/dev/null/git-verify.sh
+```bash
 git --version
 # Expected output: git version 2.x.x
 ```

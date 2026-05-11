@@ -70,7 +70,7 @@ Some programs have *no* graphical interface at all — no buttons, no icons, no 
 
 Here's what it looks like in practice. Say you want to see a list of files in a folder. In a GUI, you'd open File Explorer or Finder and look around with your eyes. In the CLI, you'd type something like:
 
-```project-hematite/contents/en/elementry/computer_science/how_programs_work.md#L1-1
+```bash
 ls
 ```
 

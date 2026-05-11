@@ -46,7 +46,7 @@ SSH 接続を開くと二つのことが自動的に起きる：
 
 ターミナルを開いて実行する：
 
-```/dev/null/ssh-keygen.sh
+```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
@@ -55,7 +55,7 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 
 コマンドはいくつかのことを聞いてくる：
 
-```/dev/null/ssh-keygen-session.txt
+```text
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/you/.ssh/id_ed25519):
 Enter passphrase (empty for no passphrase):
@@ -70,14 +70,14 @@ Your public key has been saved in /home/you/.ssh/id_ed25519.pub
 
 これで二つの新しいファイルができた：
 
-```/dev/null/ls-ssh.sh
+```bash
 ~/.ssh/id_ed25519      # 秘密鍵 — 慎重に守る
 ~/.ssh/id_ed25519.pub  # 公開鍵 — 共有して安全
 ```
 
 公開鍵はいつでも表示できる：
 
-```/dev/null/cat-pubkey.sh
+```bash
 cat ~/.ssh/id_ed25519.pub
 # 次のような一行の長い行が表示される：
 # ssh-ed25519 AAAA...多くの文字... your_email@example.com
@@ -89,7 +89,7 @@ cat ~/.ssh/id_ed25519.pub
 
 1. 公開鍵を表示してクリップボードに全体をコピーする：
 
-   ```/dev/null/print-pubkey.sh
+   ```bash
    cat ~/.ssh/id_ed25519.pub
    ```
 
@@ -102,13 +102,13 @@ cat ~/.ssh/id_ed25519.pub
 
 動作確認するには：
 
-```/dev/null/ssh-test-github.sh
+```bash
 ssh -T git@github.com
 # 期待するレスポンス：
 # Hi your-username! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-```/dev/null/ssh-test-gitlab.sh
+```bash
 ssh -T git@gitlab.com
 # 期待するレスポンス：
 # Welcome to GitLab, @your-username!
@@ -120,7 +120,7 @@ ssh -T git@gitlab.com
 
 Linux サーバーへのパスワードベースのアクセスがあってキーベースの認証に切り替えたい場合は `ssh-copy-id` を使う：
 
-```/dev/null/ssh-copy-id.sh
+```bash
 ssh-copy-id user@hostname
 # user をサーバー上のユーザー名に置き換える
 # hostname をサーバーの IP アドレスまたはドメイン名に置き換える
@@ -130,7 +130,7 @@ ssh-copy-id user@hostname
 
 `ssh-copy-id` がシステムで使えない場合は手動で同じことができる。まずローカルで公開鍵を表示して、サーバーに追加する：
 
-```/dev/null/manual-authorized-keys.sh
+```bash
 # リモートサーバーで、ディレクトリとファイルが存在しない場合は作成する：
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
@@ -146,7 +146,7 @@ chmod 600 ~/.ssh/authorized_keys
 
 キーを置いたら、接続はコマンド一つだ：
 
-```/dev/null/ssh-connect.sh
+```bash
 ssh user@hostname
 # 例：ssh alice@203.0.113.42
 # またはドメイン名で：ssh alice@dev.example.com
@@ -160,7 +160,7 @@ ssh user@hostname
 
 毎回 `ssh alice@203.0.113.42` と入力するのはすぐ飽きる。接続の詳細を `~/.ssh/config` に保存して短いニックネームを使えるようになる：
 
-```/dev/null/ssh-config
+```text
 Host myserver
     HostName 203.0.113.42
     User alice

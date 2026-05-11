@@ -92,7 +92,7 @@ JavaScript は1995年にたった10日で作られ、それ以来ウェブの中
 
 SQL では Java や Rust でプログラムを「書く」ような意味でプログラムを書くのではない。代わりに質問をする：
 
-```/dev/null/example.sql#L1-5
+```sql
 -- "2024年1月1日以降に登録したすべてのユーザーの名前を取得"
 SELECT name
 FROM users

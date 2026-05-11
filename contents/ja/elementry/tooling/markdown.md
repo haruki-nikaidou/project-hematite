@@ -16,7 +16,7 @@ updated: 2026-05-11
 
 ちょっとした味見：
 
-```/dev/null/hello.md#L1-6
+```markdown
 # My first note
 
 This is a **bold** idea and this is *italic*.
@@ -72,7 +72,7 @@ Markdown がすべての状況で優れているわけではない。Word が適
 
 一行を一つ以上の `#` 文字とスペースで始める。`#` の数が見出しレベルを設定する。`h1`（最大）から `h6`（最小）まで。
 
-```/dev/null/headings.md#L1-6
+```markdown
 # Level 1 — the page title
 ## Level 2 — a main section
 ### Level 3 — a subsection
@@ -87,7 +87,7 @@ Markdown がすべての状況で優れているわけではない。Word が適
 
 **段落**とは、次の段落と空白行で区切られた一行以上のテキストだ。
 
-```/dev/null/paragraphs.md#L1-7
+```markdown
 This is the first paragraph. It can span
 multiple lines in the source file — they
 will be joined into one paragraph when rendered.
@@ -102,7 +102,7 @@ above is what separates them.
 
 `**二重アスタリスク**` でテキストを**太字**に、`*一重アスタリスク*` で*斜体*にする。組み合わせることもできる。
 
-```/dev/null/emphasis.md#L1-5
+```markdown
 This word is **bold**.
 This word is *italic*.
 This word is ***bold and italic***.
@@ -116,7 +116,7 @@ Asterisks are preferred by convention.
 
 **箇条書きリスト**は `-`、`*`、`+` を箇条マーカーとして使う。**番号付きリスト**は数字の後にピリオドを使う。二つまたは四つのスペースでインデントしてリストを入れ子にできる。
 
-```/dev/null/lists.md#L1-18
+```markdown
 ## Unordered list
 
 - Apples
@@ -145,7 +145,7 @@ Asterisks are preferred by convention.
 
 **リンク**は `[表示テキスト](URL)` と書く。角括弧内のテキストが読者に見える部分で、丸括弧内の URL が移動先だ。
 
-```/dev/null/links.md#L1-6
+```markdown
 Visit [the Rust website](https://www.rust-lang.org).
 
 For relative links inside a site:
@@ -158,7 +158,7 @@ You can also write a bare URL: <https://www.rust-lang.org>
 
 **画像**はリンクとほぼ同じで、`!` で始まる。
 
-```/dev/null/images.md#L1-4
+```markdown
 ![A cute ferris the crab](https://rustacean.net/assets/rustacean-orig-noshadow.svg)
 
 ![Alt text is important for accessibility](./images/diagram.png)
@@ -172,7 +172,7 @@ You can also write a bare URL: <https://www.rust-lang.org>
 
 複数行のコードブロックには、三つのバッククォートのフェンスを使って、シンタックスハイライトのための言語識別子を含める。
 
-````/dev/null/code.md#L1-14
+````markdown
 Here is an inline example: `cargo build`.
 
 Here is a block example:
@@ -190,7 +190,7 @@ fn greet(name: &str) -> String {
 
 行の前に `>` を付けると**引用ブロック**（blockquote）になる — 誰かを引用したり、ヒントを強調したり、警告を示すのに便利だ。
 
-```/dev/null/blockquote.md#L1-7
+```markdown
 > The only way to learn a new programming language is by
 > writing programs in it.
 > — Dennis Ritchie
@@ -202,7 +202,7 @@ fn greet(name: &str) -> String {
 
 三つ以上のハイフン、アスタリスク、またはアンダースコアを一行に書くと**水平線**（horizontal rule）— 視覚的な区切り線 — になる。
 
-```/dev/null/hr.md#L1-5
+```markdown
 Section one content here.
 
 ---
@@ -214,7 +214,7 @@ Section two content here.
 
 **テーブル**はパイプ文字 `|` とヘッダー区切りのハイフン `-` で描く。区切り行のコロンが列の配置を制御する。
 
-```/dev/null/table.md#L1-9
+```markdown
 | Language | Year | Creator        |
 |----------|------|----------------|
 | C        | 1972 | Dennis Ritchie |
@@ -232,7 +232,7 @@ Section two content here.
 
 フォーマットをトリガーせずに文字通りの `*` や `#` を書く必要があれば、前にバックスラッシュを置く。
 
-```/dev/null/escaping.md#L1-3
+```markdown
 \*This is not italic.\*
 \# This is not a heading.
 Use a backslash before: \\ \` \* \_ \{ \} \[ \] \( \) \# \+ \- \. \!

@@ -14,7 +14,7 @@ updated: 2026-05-09
 
 ターミナルを開くと、こんな感じのものが見える：
 
-```/dev/null/prompt-example.sh
+```bash
 yamada@machine ~ %
 ```
 
@@ -28,7 +28,7 @@ yamada@machine ~ %
 
 正確にどこにいるかを知るには `pwd`（**p**rint **w**orking **d**irectory）を実行する：
 
-```/dev/null/pwd-example.sh
+```bash
 pwd
 # /home/yamada
 ```
@@ -39,14 +39,14 @@ pwd
 
 `ls`（**l**i**s**t）は現在のディレクトリの中を表示する：
 
-```/dev/null/ls-example.sh
+```bash
 ls
 # Desktop  Documents  Downloads  Music  Pictures  projects
 ```
 
 `-la` フラグを追加すると、ファイルサイズ、所有者、パーミッション、隠しファイルなど詳細が表示される：
 
-```/dev/null/ls-la-example.sh
+```bash
 ls -la
 # total 48
 # drwxr-xr-x  8 yamada yamada 4096 May  9 10:00 .
@@ -62,7 +62,7 @@ ls -la
 
 `cd`（**c**hange **d**irectory）は別のフォルダに移動する — キャビネットの別の引き出しを開けるように。
 
-```/dev/null/cd-example.sh
+```bash
 cd Documents
 pwd
 # /home/yamada/Documents
@@ -70,7 +70,7 @@ pwd
 
 親ディレクトリ（一段上）に**戻る**には、特別な略記 `..` を使う：
 
-```/dev/null/cd-up-example.sh
+```bash
 cd ..
 pwd
 # /home/yamada
@@ -78,7 +78,7 @@ pwd
 
 どこからでもホームディレクトリに一気に戻るには、引数なしで `cd` を入力するだけだ：
 
-```/dev/null/cd-home-example.sh
+```bash
 cd
 pwd
 # /home/yamada
@@ -93,7 +93,7 @@ pwd
 
 どちらのスタイルも `cd` と — ほぼすべての他のコマンドで — 使える：
 
-```/dev/null/path-examples.sh
+```bash
 cd /home/yamada/Documents   # 絶対パス：どこからでも動作する
 cd Documents                # 相対パス：すでに /home/yamada にいるときのみ動作する
 cd ~/Documents              # ~ はホームディレクトリの略記 — どこからでも動作する
@@ -103,7 +103,7 @@ cd ~/Documents              # ~ はホームディレクトリの略記 — ど�
 
 `mkdir`（**m**a**k**e **dir**ectory）は新しいフォルダを作る：
 
-```/dev/null/mkdir-example.sh
+```bash
 mkdir projects
 ls
 # Desktop  Documents  Downloads  Music  Pictures  projects
@@ -111,7 +111,7 @@ ls
 
 フォルダとすべての存在しない親を一発で作るには `-p` フラグを追加する：
 
-```/dev/null/mkdir-p-example.sh
+```bash
 mkdir -p projects/hematite/notes
 ```
 
@@ -121,7 +121,7 @@ mkdir -p projects/hematite/notes
 
 `touch` は空のファイルを作る。ファイルがすでに存在する場合は、内容を変えずに最終更新タイムスタンプを更新するだけだ。
 
-```/dev/null/touch-example.sh
+```bash
 touch hello.txt
 ls
 # Desktop  Documents  Downloads  Music  Pictures  hello.txt  projects
@@ -133,14 +133,14 @@ ls
 
 `cat`（**con**cate**n**ate）はファイルの内容をターミナルに直接表示する。エディターを開かずにファイルをサッと確認する最速の方法だ。
 
-```/dev/null/cat-empty-example.sh
+```bash
 cat hello.txt
 # （出力なし — ファイルが空）
 ```
 
 まず何かを追加してみよう：
 
-```/dev/null/echo-redirect-example.sh
+```bash
 echo "Hello, world!" > hello.txt
 cat hello.txt
 # Hello, world!
@@ -152,7 +152,7 @@ cat hello.txt
 
 `cp`（**c**o**p**y）はファイルをある場所から別の場所にコピーする：
 
-```/dev/null/cp-example.sh
+```bash
 cp hello.txt hello-backup.txt
 ls
 # Desktop  Documents  ... hello.txt  hello-backup.txt  projects
@@ -160,7 +160,7 @@ ls
 
 ディレクトリ全体 — その中のすべてを含む — をコピーするには `-r` フラグ（**r**ecursive、再帰的）を追加する：
 
-```/dev/null/cp-r-example.sh
+```bash
 cp -r projects projects-backup
 ```
 
@@ -172,13 +172,13 @@ cp -r projects projects-backup
 
 ファイルをディレクトリに移動する：
 
-```/dev/null/mv-into-dir-example.sh
+```bash
 mv hello.txt projects/
 ```
 
 同じディレクトリ内で新しい名前に「移動」してリネームする：
 
-```/dev/null/mv-rename-example.sh
+```bash
 mv hello-backup.txt goodbye.txt
 ```
 
@@ -186,13 +186,13 @@ mv hello-backup.txt goodbye.txt
 
 `rm`（**r**e**m**ove）はファイルを削除する。**ゴミ箱はない** — `rm` で削除したファイルは完全に消える。
 
-```/dev/null/rm-example.sh
+```bash
 rm goodbye.txt
 ```
 
 ディレクトリ全体とその中のすべてを削除するには `-rf`（**r**ecursive、**f**orce）を使う：
 
-```/dev/null/rm-rf-example.sh
+```bash
 rm -rf projects-backup
 ```
 
@@ -200,7 +200,7 @@ rm -rf projects-backup
 
 内容のない空のディレクトリを `rm` なしで削除するには `rmdir` も使える。中にまだ内容がある場合は削除を拒否するため、フォルダが空であるべきことがわかっている場合は安全な選択肢だ：
 
-```/dev/null/rmdir-example.sh
+```bash
 rmdir some-empty-folder
 ```
 
@@ -214,7 +214,7 @@ rmdir some-empty-folder
 
 `my-long-project-name` というディレクトリがあるとする。全部入力する代わりに、`my-` と入力して Tab を押す：
 
-```/dev/null/tab-completion-example.sh
+```bash
 cd my-<TAB>
 # Zsh が補完：cd my-long-project-name/
 ```
@@ -237,7 +237,7 @@ Tab 補完が機能する場面：
 
 特定の古いコマンドを見つけるには **Ctrl + R** を押してその一部を入力する。Zsh が履歴を検索して直近の一致を表示する：
 
-```/dev/null/history-search-example.sh
+```bash
 # Ctrl+R を押して "install" と入力
 # Zsh は次のようなものを表示：
 # (reverse-i-search)`install': sudo apt install git -y

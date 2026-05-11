@@ -14,7 +14,7 @@ Every tool you'll use as a developer — Git, Rust's compiler, package managers 
 
 When you open your terminal, you see something like this:
 
-```/dev/null/prompt-example.sh
+```bash
 yamada@machine ~ %
 ```
 
@@ -28,7 +28,7 @@ Your shell always has a **current working directory** — a folder it treats as 
 
 To see exactly where you are, run `pwd` (**p**rint **w**orking **d**irectory):
 
-```/dev/null/pwd-example.sh
+```bash
 pwd
 # /home/yamada
 ```
@@ -39,14 +39,14 @@ Think of it as asking "which drawer am I in?" inside a very tall filing cabinet.
 
 `ls` (**l**i**s**t) shows you what's inside the current directory:
 
-```/dev/null/ls-example.sh
+```bash
 ls
 # Desktop  Documents  Downloads  Music  Pictures  projects
 ```
 
 Add the `-la` flags to see much more detail — file sizes, owners, permissions, and hidden files:
 
-```/dev/null/ls-la-example.sh
+```bash
 ls -la
 # total 48
 # drwxr-xr-x  8 yamada yamada 4096 May  9 10:00 .
@@ -62,7 +62,7 @@ The entries that start with `.` are **hidden files** — configuration files tha
 
 `cd` (**c**hange **d**irectory) moves you into a different folder — like opening a drawer in that cabinet.
 
-```/dev/null/cd-example.sh
+```bash
 cd Documents
 pwd
 # /home/yamada/Documents
@@ -70,7 +70,7 @@ pwd
 
 To go **up** one level to the parent directory, use the special `..` shorthand:
 
-```/dev/null/cd-up-example.sh
+```bash
 cd ..
 pwd
 # /home/yamada
@@ -78,7 +78,7 @@ pwd
 
 To jump straight back to your home directory from anywhere, type `cd` with no argument at all:
 
-```/dev/null/cd-home-example.sh
+```bash
 cd
 pwd
 # /home/yamada
@@ -93,7 +93,7 @@ A **path** is the address of a file or directory. There are two styles:
 
 You can use either style with `cd` — and with almost every other command:
 
-```/dev/null/path-examples.sh
+```bash
 cd /home/yamada/Documents   # Absolute: works from anywhere
 cd Documents                # Relative: only works if you're already in /home/yamada
 cd ~/Documents              # ~ is shorthand for your home directory — works from anywhere
@@ -103,7 +103,7 @@ cd ~/Documents              # ~ is shorthand for your home directory — works f
 
 `mkdir` (**m**a**k**e **dir**ectory) creates a new folder:
 
-```/dev/null/mkdir-example.sh
+```bash
 mkdir projects
 ls
 # Desktop  Documents  Downloads  Music  Pictures  projects
@@ -111,7 +111,7 @@ ls
 
 To create a folder and all its missing parents in one shot, add the `-p` flag:
 
-```/dev/null/mkdir-p-example.sh
+```bash
 mkdir -p projects/hematite/notes
 ```
 
@@ -121,7 +121,7 @@ Without `-p`, `mkdir` refuses to create `hematite/notes` if `projects/hematite` 
 
 `touch` creates an empty file. If the file already exists, it just updates its last-modified timestamp without changing its contents.
 
-```/dev/null/touch-example.sh
+```bash
 touch hello.txt
 ls
 # Desktop  Documents  Downloads  Music  Pictures  hello.txt  projects
@@ -133,14 +133,14 @@ You'll usually use `touch` to quickly stub out a file before opening it in your 
 
 `cat` (**con**cate**n**ate) prints a file's contents directly in the terminal. It's the quickest way to peek at a file without opening an editor.
 
-```/dev/null/cat-empty-example.sh
+```bash
 cat hello.txt
 # (no output — the file is empty)
 ```
 
 Let's add something to it first:
 
-```/dev/null/echo-redirect-example.sh
+```bash
 echo "Hello, world!" > hello.txt
 cat hello.txt
 # Hello, world!
@@ -152,7 +152,7 @@ cat hello.txt
 
 `cp` (**c**o**p**y) copies a file from one location to another:
 
-```/dev/null/cp-example.sh
+```bash
 cp hello.txt hello-backup.txt
 ls
 # Desktop  Documents  ... hello.txt  hello-backup.txt  projects
@@ -160,7 +160,7 @@ ls
 
 To copy an entire directory — including everything inside it — add the `-r` flag (**r**ecursive):
 
-```/dev/null/cp-r-example.sh
+```bash
 cp -r projects projects-backup
 ```
 
@@ -172,13 +172,13 @@ Without `-r`, `cp` will refuse to copy a directory at all.
 
 Move a file into a directory:
 
-```/dev/null/mv-into-dir-example.sh
+```bash
 mv hello.txt projects/
 ```
 
 Rename a file by "moving" it to a new name in the same directory:
 
-```/dev/null/mv-rename-example.sh
+```bash
 mv hello-backup.txt goodbye.txt
 ```
 
@@ -186,13 +186,13 @@ mv hello-backup.txt goodbye.txt
 
 `rm` (**r**e**m**ove) deletes files. **There is no trash can** — files deleted with `rm` are gone for good.
 
-```/dev/null/rm-example.sh
+```bash
 rm goodbye.txt
 ```
 
 To delete an entire directory and everything inside it, use `-rf` (**r**ecursive, **f**orce):
 
-```/dev/null/rm-rf-example.sh
+```bash
 rm -rf projects-backup
 ```
 
@@ -200,7 +200,7 @@ rm -rf projects-backup
 
 To delete an empty directory without using `rm`, you can also use `rmdir`. It refuses to delete a directory that still has contents, which makes it a safer option when you know the folder should be empty:
 
-```/dev/null/rmdir-example.sh
+```bash
 rmdir some-empty-folder
 ```
 
@@ -214,7 +214,7 @@ When you're typing a command or a path, press **Tab** and Zsh will autocomplete 
 
 Suppose you have a directory called `my-long-project-name`. Instead of typing it out, type `my-` and press Tab:
 
-```/dev/null/tab-completion-example.sh
+```bash
 cd my-<TAB>
 # Zsh completes it to: cd my-long-project-name/
 ```
@@ -237,7 +237,7 @@ Made a typo in a long command? Press ↑ to bring it back, use the ← → arrow
 
 When you need to find a specific old command, press **Ctrl + R** and start typing any part of it. Zsh will search through your history and show the most recent match:
 
-```/dev/null/history-search-example.sh
+```bash
 # Press Ctrl+R, then type "install"
 # Zsh shows something like:
 # (reverse-i-search)`install': sudo apt install git -y

@@ -46,7 +46,7 @@ Think of it like a padlock and a key. You hand out copies of the padlock (public
 
 Open your terminal and run:
 
-```/dev/null/ssh-keygen.sh
+```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
@@ -55,7 +55,7 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 
 The command will ask you a few things:
 
-```/dev/null/ssh-keygen-session.txt
+```text
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/you/.ssh/id_ed25519):
 Enter passphrase (empty for no passphrase):
@@ -70,14 +70,14 @@ Your public key has been saved in /home/you/.ssh/id_ed25519.pub
 
 You now have two new files:
 
-```/dev/null/ls-ssh.sh
+```bash
 ~/.ssh/id_ed25519      # your private key — guard this carefully
 ~/.ssh/id_ed25519.pub  # your public key — safe to share
 ```
 
 You can print your public key at any time:
 
-```/dev/null/cat-pubkey.sh
+```bash
 cat ~/.ssh/id_ed25519.pub
 # prints a single long line like:
 # ssh-ed25519 AAAA...many characters... your_email@example.com
@@ -89,7 +89,7 @@ Once you register your public key with a hosting platform, you can `clone`, `pus
 
 1. Print your public key and copy the entire output to your clipboard:
 
-   ```/dev/null/print-pubkey.sh
+   ```bash
    cat ~/.ssh/id_ed25519.pub
    ```
 
@@ -102,13 +102,13 @@ That is all. The platform stores your public key. When you connect using an SSH 
 
 To verify that everything is working:
 
-```/dev/null/ssh-test-github.sh
+```bash
 ssh -T git@github.com
 # Expected response:
 # Hi your-username! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-```/dev/null/ssh-test-gitlab.sh
+```bash
 ssh -T git@gitlab.com
 # Expected response:
 # Welcome to GitLab, @your-username!
@@ -120,7 +120,7 @@ Either message confirms that your key is recognised correctly.
 
 If you have password-based access to a Linux server and want to switch to key-based authentication, use `ssh-copy-id`:
 
-```/dev/null/ssh-copy-id.sh
+```bash
 ssh-copy-id user@hostname
 # replace user with your username on the server
 # replace hostname with the server's IP address or domain name
@@ -130,7 +130,7 @@ This command connects using your password one last time and appends your public 
 
 If `ssh-copy-id` is not available on your system, you can do the same thing manually. First, print your public key locally, then add it to the server:
 
-```/dev/null/manual-authorized-keys.sh
+```bash
 # On the remote server, create the directory and file if they do not exist:
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
@@ -146,7 +146,7 @@ The `chmod` commands matter: SSH refuses to use key files if their permissions a
 
 With your key in place, connecting is a single command:
 
-```/dev/null/ssh-connect.sh
+```bash
 ssh user@hostname
 # for example: ssh alice@203.0.113.42
 # or with a domain name: ssh alice@dev.example.com
@@ -160,7 +160,7 @@ To end the session, type `exit` or press **Ctrl+D**.
 
 Typing `ssh alice@203.0.113.42` every time gets old quickly. You can save connection details in `~/.ssh/config` and use a short nickname instead:
 
-```/dev/null/ssh-config
+```text
 Host myserver
     HostName 203.0.113.42
     User alice

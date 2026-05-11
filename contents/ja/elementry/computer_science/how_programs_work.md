@@ -70,7 +70,7 @@ Linux について話したとき、ターミナル（terminal）について少
 
 実際どんな感じか。フォルダ内のファイル一覧を見たいとする。GUI なら、ファイルエクスプローラーや Finder を開いて目で探す。CLI では次のようにタイプする：
 
-```project-hematite/contents/en/elementry/computer_science/how_programs_work.md#L1-1
+```bash
 ls
 ```
 

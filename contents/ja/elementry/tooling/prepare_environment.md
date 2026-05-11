@@ -25,7 +25,7 @@ Windows には **コマンドプロンプト**（Command Prompt）と **PowerShe
 1. **PowerShell** または **コマンドプロンプト** を管理者として開く（アプリを右クリック → *管理者として実行*）。
 2. 次のコマンドを実行する：
 
-```/dev/null/wsl-install.ps1
+```powershell
 wsl --install
 ```
 
@@ -47,7 +47,7 @@ macOS は Unix の上に作られているため、ターミナルとシェル�
 1. **ターミナル**を開く。`アプリケーション → ユーティリティ → ターミナル` にあるか、`Cmd + Space` を押して*ターミナル*と入力して Enter を押す。
 2. このコマンドをペーストして Enter を押す：
 
-```/dev/null/brew-install.sh
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
@@ -56,7 +56,7 @@ macOS は Unix の上に作られているため、ターミナルとシェル�
 
 インストールが成功したか確認する：
 
-```/dev/null/brew-verify.sh
+```bash
 brew --version
 # 期待する出力：Homebrew 4.x.x
 ```
@@ -73,13 +73,13 @@ brew --version
 
 まず Zsh をインストールする：
 
-```/dev/null/install-zsh.sh
+```bash
 sudo apt update && sudo apt install zsh -y
 ```
 
 次にデフォルトシェルにする：
 
-```/dev/null/chsh-zsh.sh
+```bash
 chsh -s $(which zsh)
 ```
 
@@ -91,7 +91,7 @@ chsh -s $(which zsh)
 
 次のコマンドでインストールする：
 
-```/dev/null/install-omz.sh
+```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
@@ -112,14 +112,14 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 **WSL/Ubuntu** では、新しいものをインストールする前にローカルのパッケージリストを更新するのが良い習慣だ：
 
-```/dev/null/apt-install.sh
+```bash
 sudo apt update
 sudo apt install <package-name>
 ```
 
 **macOS** では：
 
-```/dev/null/brew-install-package.sh
+```bash
 brew install <package-name>
 ```
 
@@ -131,19 +131,19 @@ brew install <package-name>
 
 **WSL/Ubuntu** では：
 
-```/dev/null/install-git-apt.sh
+```bash
 sudo apt install git -y
 ```
 
 **macOS** では：
 
-```/dev/null/install-git-brew.sh
+```bash
 brew install git
 ```
 
 インストールされたか確認する：
 
-```/dev/null/git-verify.sh
+```bash
 git --version
 # 期待する出力：git version 2.x.x
 ```

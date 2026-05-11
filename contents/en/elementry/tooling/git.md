@@ -26,7 +26,7 @@ A few terms you'll see constantly:
 
 Before you make your first commit, tell Git who you are. It attaches your name and email address to every commit you create, so others can see who made each change.
 
-```/dev/null/git-config.sh
+```bash
 git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
 ```
@@ -39,7 +39,7 @@ Run these once and Git remembers them on your machine. The `--global` flag means
 
 The most common starting point is **cloning** — downloading an existing repository, including its complete history, onto your machine.
 
-```/dev/null/git-clone.sh
+```bash
 git clone https://github.com/some-user/some-project.git
 ```
 
@@ -49,7 +49,7 @@ This creates a new folder called `some-project/` containing all the project file
 
 If you're beginning a project from scratch, navigate to your project folder and run:
 
-```/dev/null/git-init.sh
+```bash
 git init
 ```
 
@@ -71,7 +71,7 @@ This method works, but it gets tedious. Typing or pasting a token every time you
 
 Generating an SSH key pair and registering it with a platform is covered in [Introduction to SSH](/en/cp/elementry/tooling/ssh/). Once that's done, you clone using the SSH URL rather than the HTTPS one:
 
-```/dev/null/git-clone-ssh.sh
+```bash
 # HTTPS — works, but prompts for your token on every push
 git clone https://github.com/some-user/some-project.git
 
@@ -97,7 +97,7 @@ You move changes from the working tree into the staging area with `git add`, and
 
 First, tell Git which changes to include in the next commit:
 
-```/dev/null/git-add.sh
+```bash
 git add main.rs    # stage a single file
 git add .          # stage all changed files in the current folder
 ```
@@ -108,7 +108,7 @@ Staging lets you be deliberate: if you changed three files but only two of them 
 
 Once you're happy with what's staged, create the commit with a short message describing what you did:
 
-```/dev/null/git-commit.sh
+```bash
 git commit -m "Add greeting function"
 ```
 
@@ -118,14 +118,14 @@ A good commit message is a brief, present-tense description of the change: "Fix 
 
 Two commands you'll use constantly while working:
 
-```/dev/null/git-status-log.sh
+```bash
 git status          # shows which files changed and what's staged
 git log --oneline   # shows a compact list of recent commits
 ```
 
 A typical `git log --oneline` output looks like this:
 
-```/dev/null/git-log-output.txt
+```text
 a3f2c1e Add greeting function
 b8e0d4a Fix crash on empty input
 c12f90b Initial commit
@@ -139,7 +139,7 @@ Each line is one commit. The short string of letters and numbers on the left is 
 
 After you commit locally, you send those commits to the remote with `git push`:
 
-```/dev/null/git-push.sh
+```bash
 git push origin main
 ```
 
@@ -149,7 +149,7 @@ git push origin main
 
 When a teammate pushes commits, you bring them into your local copy with `git pull`:
 
-```/dev/null/git-pull.sh
+```bash
 git pull origin main
 ```
 
@@ -159,7 +159,7 @@ git pull origin main
 
 If you want to see what changed on the remote *before* applying anything, use `git fetch`:
 
-```/dev/null/git-fetch.sh
+```bash
 git fetch origin
 ```
 
@@ -173,20 +173,20 @@ Your repository always starts with one branch — typically named `main`. When y
 
 ### Creating and switching to a branch
 
-```/dev/null/git-switch-create.sh
+```bash
 git switch -c feature-login   # create a new branch and switch to it in one step
 ```
 
 Or, if you prefer doing it in two steps:
 
-```/dev/null/git-branch-two-steps.sh
+```bash
 git branch feature-login   # create the branch
 git switch feature-login   # then switch to it
 ```
 
 ### Listing branches
 
-```/dev/null/git-branch-list.sh
+```bash
 git branch
 ```
 
@@ -196,7 +196,7 @@ The branch with an asterisk (`*`) beside it is the one you're currently on.
 
 When your branch is ready to share with others:
 
-```/dev/null/git-push-branch.sh
+```bash
 git push origin feature-login
 ```
 
@@ -208,7 +208,7 @@ Once your feature is finished, you need to integrate those changes back into the
 
 **Merging** takes the changes from one branch and combines them into another. Switch to the branch you want to update, then merge the other branch in:
 
-```/dev/null/git-merge.sh
+```bash
 git switch main
 git merge feature-login
 ```
@@ -219,7 +219,7 @@ Git creates a **merge commit** that ties the two lines of history together. Look
 
 **Rebasing** is an alternative that produces a cleaner, linear history. Instead of creating a merge commit, it replays your commits on top of the target branch as if you had written them there from the start:
 
-```/dev/null/git-rebase.sh
+```bash
 git switch feature-login
 git rebase main
 ```
