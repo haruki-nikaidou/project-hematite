@@ -34,10 +34,39 @@
     flex-shrink: 0;
     margin-left: auto;
   }
+
+  @media (max-width: 600px) {
+    flex-wrap: wrap;
+    height: auto;
+    padding: var(--space-2) var(--space-4);
+    gap: var(--space-2);
+    align-items: center;
+
+    .nav-logo {
+      flex: 1;
+    }
+
+    .nav-right {
+      margin-left: 0;
+      flex-shrink: 0;
+    }
+
+    .nav-search {
+      flex-basis: 100%;
+      max-width: none;
+      order: 3;
+      padding-bottom: var(--space-2);
+    }
+  }
 }
 
 .site-main {
   min-height: calc(100vh - var(--nav-height) - 4rem);
+
+  @media (max-width: 600px) {
+    // Nav wraps to two rows on mobile; use a generous estimate
+    min-height: calc(100vh - 6.5rem - 4rem);
+  }
 }
 
 .content-wrap {
