@@ -1,4 +1,5 @@
 {
+  "home":             { "en": "Home",             "ja": "ホーム" },
   "elementry":        { "en": "Elementary",      "ja": "入門" },
   "basis":            { "en": "Basis",            "ja": "基礎" },
   "computer_science": { "en": "Computer Science", "ja": "計算機科学" },

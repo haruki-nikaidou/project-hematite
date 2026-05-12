@@ -17,13 +17,13 @@ const segments = path.split('/').filter(Boolean);
 
 type Crumb = { label: string; href: string | null };
 const crumbs: Crumb[] = [
-  { label: 'Home', href: `/${lang}/` },
+  { label: segmentLabel('home', lang), href: `/${lang}/` },
 ];
 
 // For each prefix level, add a crumb
 for (let i = 0; i < segments.length; i++) {
   const prefix = segments.slice(0, i + 1).join('/');
-  const isLast = i === segments.length - 1 && !!cpId === false;
+  const isLast = i === segments.length - 1;
   crumbs.push({
     label: segmentLabel(segments[i], lang),
     href: isLast ? null : indexUrl(lang, prefix),
