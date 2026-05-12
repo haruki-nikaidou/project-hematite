@@ -1,50 +1,59 @@
 ---
-import '../styles/global.scss';
-import Nav from '../components/Nav.astro';
+import "../styles/global.scss";
+import Nav from "../components/Nav.astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
-  title: string;
-  description?: string;
-  lang: string;
-  ogType?: string;
+    title: string;
+    description?: string;
+    lang: string;
+    ogType?: string;
 }
 
-const { title, description, lang, ogType = 'website' } = Astro.props;
-const siteTitle = 'Project Hematite';
+const { title, description, lang, ogType = "website" } = Astro.props;
+const siteTitle = "Project Hematite";
 const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
 ---
 
 <!doctype html>
 <html lang={lang}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{fullTitle}</title>
-    {description && <meta name="description" content={description} />}
-    <meta property="og:title" content={fullTitle} />
-    {description && <meta property="og:description" content={description} />}
-    <meta property="og:type" content={ogType} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <!-- Prevent theme flash: apply saved theme before paint -->
-    <script is:inline>
-      (function () {
-        try {
-          const saved = localStorage.getItem('hematite-theme');
-          if (saved === 'dark' || saved === 'light') {
-            document.documentElement.setAttribute('data-theme', saved);
-          }
-        } catch (_) {}
-      })();
-    </script>
-  </head>
-  <body>
-    <Nav lang={lang} />
-    <main class="site-main">
-      <slot />
-    </main>
-    <footer class="site-footer" data-pagefind-ignore>
-      <p>Project Hematite — Open education for Rust developers</p>
-    </footer>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <Analytics />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{fullTitle}</title>
+        {description && <meta name="description" content={description} />}
+        <meta property="og:title" content={fullTitle} />
+        {
+            description && (
+                <meta property="og:description" content={description} />
+            )
+        }
+        <meta property="og:type" content={ogType} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <!-- Prevent theme flash: apply saved theme before paint -->
+        <script is:inline>
+            (function () {
+                try {
+                    const saved = localStorage.getItem("hematite-theme");
+                    if (saved === "dark" || saved === "light") {
+                        document.documentElement.setAttribute(
+                            "data-theme",
+                            saved,
+                        );
+                    }
+                } catch (_) {}
+            })();
+        </script>
+    </head>
+    <body>
+        <Nav lang={lang} />
+        <main class="site-main">
+            <slot />
+        </main>
+        <footer class="site-footer" data-pagefind-ignore>
+            <p>Project Hematite — Open education for Rust developers</p>
+        </footer>
+    </body>
 </html>
