@@ -264,7 +264,7 @@ When translating an English checkpoint into Japanese (or any other locale):
 
 ### 10.3 Japanese-Specific Rules
 
-- Use natural, technical-but-accessible Japanese. Avoid overly formal keigo in body text; a friendly `です/ます` style is preferred for `elementry` and `basis`.
+- Use natural, technical-but-accessible Japanese. Avoid overly formal keigo in body text; a friendly non-`です/ます` style is preferred.
 - Technical terms with no established Japanese equivalent should be written in **katakana** followed by the English term in parentheses on first mention. Example: スタック（stack）.
 - For terms that have a well-established Japanese equivalent (e.g., 再帰 for "recursion"), use the Japanese term and mention the English in parentheses on first mention.
 - Do **not** translate code block paths or virtual paths.
