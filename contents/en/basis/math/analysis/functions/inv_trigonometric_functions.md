@@ -158,8 +158,8 @@ The derivatives of all six inverse trigonometric functions, collected for refere
 | $\arccos x$ | $-\dfrac{1}{\sqrt{1-x^2}}$ | $(-1,\ 1)$ |
 | $\arctan x$ | $\dfrac{1}{1+x^2}$ | $\mathbb{R}$ |
 | $\operatorname{arccot} x$ | $-\dfrac{1}{1+x^2}$ | $\mathbb{R}$ |
-| $\operatorname{arcsec} x$ | $\dfrac{1}{|x|\sqrt{x^2-1}}$ | $|x| > 1$ |
-| $\operatorname{arccsc} x$ | $-\dfrac{1}{|x|\sqrt{x^2-1}}$ | $|x| > 1$ |
+| $\operatorname{arcsec} x$ | $\dfrac{1}{\lvert x \rvert\sqrt{x^2-1}}$ | $\lvert x\rvert > 1$ |
+| $\operatorname{arccsc} x$ | $-\dfrac{1}{\lvert x \rvert \sqrt{x^2-1}}$ | $\lvert x\rvert > 1$ |
 
 Notice the pattern: in each pair, $\arcsin$ and $\arccos$, $\arctan$ and $\operatorname{arccot}$, $\operatorname{arcsec}$ and $\operatorname{arccsc}$, the derivatives are negatives of each other. This reflects the complementary identities $\arcsin x + \arccos x = \dfrac{\pi}{2}$ and $\arctan x + \operatorname{arccot} x = \dfrac{\pi}{2}$.
 
