@@ -4,6 +4,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import LevelBadge from '../components/LevelBadge.astro';
 import { Icon } from 'astro-icon/components';
 import { t } from '../lib/i18n';
+import { segmentLabel } from '../lib/display';
 import { cpUrl, indexUrl } from '../lib/paths';
 import type { Locale } from '../lib/constants';
 import type { GraphNode } from '../lib/graph';
@@ -30,7 +31,7 @@ const { lang, dirPrefix, title, subDirs, checkpoints } = Astro.props;
         <h2>{t(lang, 'index.subcategories')}</h2>
         <ul class="index-list subdir-list">
           {subDirs.map((sub) => {
-            const label = sub.split('/').at(-1)!.replace(/-/g, ' ');
+            const label = segmentLabel(sub.split('/').at(-1)!, lang);
             return (
               <li>
                 <a href={indexUrl(lang, sub)} class="index-link subdir-link">
