@@ -4,13 +4,10 @@ summary: ""
 prerequisites:
   - elementry/computer_science/how_programs_work
   - basis/cs_with_zig/prepare_environment
-  - basis/cs_with_zig/pointer
 aliases: []
 tags: ["Memory", "Systems"]
 updated: 2026-05-13
 ---
-
-> This article is to be edited soon
 
 Every program you run gets handed a chunk of RAM by the operating system. That chunk doesn't sit there as an undifferentiated blob — your program divides it into distinct regions, each with different rules about what lives there and how long it survives. Understanding these regions is the mental model that makes Rust's ownership system feel logical rather than arbitrary, and it applies equally to C, C++, Go, and virtually every other systems programming language.
 
@@ -65,9 +62,9 @@ The **stack** and the **heap** are the two regions you'll think about most as a 
 
 ## The stack: memory that follows function calls
 
-Imagine a stack of plates at a cafeteria. Plates are added to the top and removed from the top — you never pull one from the middle. The last plate placed is the first one removed. Computer scientists call this **LIFO** (**Last In, First Out**).
+Imagine a stack of plates at a cafeteria. Plates are added to the top and removed from the top — you never pull one from the middle. The last plate placed is the first one removed. Computer scientists call this **LIFO** (**Last In, First Out**), and the abstract data structure built around it is itself called a [stack](/en/cp/basis/data_structure/stack/).
 
-A program's call stack works exactly the same way, but instead of plates it handles **stack frames**. A **stack frame** is a block of memory the CPU reserves for one function call. It holds all the local variables declared inside that function, along with some bookkeeping the CPU needs to resume the caller once the function returns.
+A program's call stack works exactly the same way, but instead of plates it handles **stack frames**. A **stack frame** is a block of memory the CPU reserves for one function call. It holds all the local variables declared inside that function, along with some bookkeeping the CPU needs to resume the caller once the function returns. The full mechanics of how frames are pushed, popped, and wired together across function calls are covered in [Calling Stack](/en/cp/basis/cs_with_zig/calling_stack/); here we focus only on what it means for memory layout.
 
 Here is what happens when one function calls another:
 
@@ -279,7 +276,9 @@ This behavior is not unique to Zig. Every language that compiles to native code 
 
 ## What's next
 
-With memory layout understood, two natural follow-ups await:
+With memory layout understood, several natural follow-ups await:
 
 - [Allocate Heap Memory](/en/cp/basis/cs_with_zig/malloc/) — how to request and release heap memory in Zig, and what happens when you get it wrong.
 - [Pointer](/en/cp/basis/cs_with_zig/pointer/) — a value that stores a memory address, the fundamental tool for working with heap memory and for passing data efficiently between functions.
+- [Calling Stack](/en/cp/basis/cs_with_zig/calling_stack/) — a closer look at how the stack region is actually used to drive function calls and returns.
+- [Stack](/en/cp/basis/data_structure/stack/) — the LIFO data structure in the abstract, separated from its role in program memory.
