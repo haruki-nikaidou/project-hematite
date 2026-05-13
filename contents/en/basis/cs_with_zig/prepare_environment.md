@@ -3,6 +3,7 @@ title: Preparing Zig Environment
 summary: "Learn why this course uses Zig to teach computer science fundamentals, and set up Zig on your Unix-like system so you are ready to write and run low-level code."
 prerequisites: 
   - elementry/tooling/prepare_environment
+  - elementry/tooling/package_manager
 aliases: []
 tags: ["Zig", "Practice", "Tooling"]
 updated: 2026-05-11

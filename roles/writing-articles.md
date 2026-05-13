@@ -209,18 +209,18 @@ Rules:
 
 ## 7. Code Blocks
 
-All code blocks **must** include the file path of the file the code lives in (or a descriptive virtual path if the snippet is illustrative). Use this exact syntax:
+All code blocks **must** use the language name after the opening triple backticks. Use this exact syntax:
 
 ````
-```contents/en/elementry/computer_science/how_programs_work.md#L10-20
+```rust
 fn main() {
     println!("Hello, world!");
 }
 ```
 ````
 
-- Never use triple backticks followed only by a language name (e.g., ` ```rust `). Always use a path.
-- For illustrative snippets not tied to a real file, use a descriptive virtual path under `/dev/null/`, e.g. `/dev/null/example.rs`.
+- Always specify the language (e.g., ` ```rust `, ` ```python `, ` ```ts `). Never leave it blank.
+- If the snippet comes from a specific file and that context is useful to the reader, add a comment on the first line of the code block with the file name (e.g., `// src/main.rs`). Only do this when it genuinely helps — don't add it by default.
 - Annotate code with comments. Prefer short, complete, runnable examples.
 - Rust examples must be idiomatic (use `?` for error propagation, avoid `unwrap()` in production-style snippets).
 
