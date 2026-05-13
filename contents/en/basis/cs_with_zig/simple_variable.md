@@ -1,6 +1,6 @@
 ---
 title: Simple Variable
-summary: "Learn what variables are, how to declare them in Zig with `const` and `var`, the three fundamental types (integers, booleans, and pointers), how to print their values, and how Zig's scope rules control where a variable lives."
+summary: "Learn what variables are, how to declare them in Zig with `const` and `var`, the four fundamental types (integers, floats, booleans, and pointers), how to print their values, and how Zig's scope rules control where a variable lives."
 prerequisites:
   - basis/cs_with_zig/prepare_environment
   - elementry/computer_science/how_programs_work
@@ -49,7 +49,7 @@ Prefer `const` by default. Reserve `var` for values that genuinely need to chang
 
 ## Simple types at a glance
 
-Zig is a **statically typed** language: every variable has a fixed type that is known at compile time and never changes. Here are the three categories this checkpoint introduces.
+Zig is a **statically typed** language: every variable has a fixed type that is known at compile time and never changes. Here are the four categories this checkpoint introduces.
 
 ### Integers
 
@@ -74,6 +74,26 @@ var   count:       usize = 0;
 ```
 
 For general-purpose counting, `i32` or `u32` are common choices. You will see `usize` often when indexing arrays. A deeper treatment of integer arithmetic, overflow behavior, and type casting is covered in a later checkpoint.
+
+### Floats
+
+A **float** (or **floating-point number**) represents a real number with a fractional part — values like `3.14`, `-0.5`, or `6.022e23`. Zig's float types encode their precision in the type name:
+
+| Type | Bit width | Significant decimal digits |
+|------|-----------|---------------------------|
+| `f32` | 32 | ~7 |
+| `f64` | 64 | ~15–16 |
+| `f128` | 128 | ~34 |
+
+```zig
+const pi:          f64 = 3.14159265358979;
+var   temperature: f32 = -4.5;
+const avogadro:    f64 = 6.022e23;        // scientific notation is valid
+```
+
+`f64` is the right default for most work. Use `f32` when memory is tight and the reduced precision is acceptable (common in graphics and embedded systems). Notice that float literals must contain either a decimal point or an exponent — `6.022e23` qualifies without a period.
+
+Floats have important quirks: they cannot represent every real number exactly, and arithmetic results can silently accumulate rounding error. A deeper treatment — covering all of Zig's float types, special values (`NaN`, `Inf`), comparison pitfalls, and type casting — is in the [Float Number](../float/) checkpoint.
 
 ### Booleans
 
@@ -137,10 +157,12 @@ const std = @import("std");
 pub fn main() void {
     const flag: bool = true;
     var   x:    i32  = 7;
+    const pi:   f64  = 3.14;
     const px:   *i32 = &x;
 
     std.debug.print("flag  = {}\n",  .{flag});  // flag  = true
     std.debug.print("x     = {}\n",  .{x});     // x     = 7
+    std.debug.print("pi    = {}\n",  .{pi});    // pi    = 3.14
     std.debug.print("px    = {}\n",  .{px});    // px    = (a memory address)
     std.debug.print("px.*  = {}\n",  .{px.*});  // px.*  = 7
 }
@@ -180,8 +202,9 @@ Three rules to keep in mind:
 - A **variable** is a named memory location that holds a typed value.
 - `const` declares an immutable binding; `var` declares a mutable one. Prefer `const` by default.
 - The type annotation comes after the name: `const x: i32 = 0;`. Every variable must be initialized.
-- Three core types at this stage:
+- Four core types at this stage:
   - **Integers** (`i32`, `u32`, `usize`, …) — whole numbers with explicit sign and width.
+  - **Floats** (`f32`, `f64`, …) — real numbers with a fractional part; not every value is representable exactly.
   - **Booleans** (`bool`) — `true` or `false`.
   - **Pointers** (`*T`) — the memory address of a value of type `T`.
 - Use `std.debug.print("{}\n", .{x})` to print any simple variable's value to stderr.
