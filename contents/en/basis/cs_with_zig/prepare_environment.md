@@ -68,7 +68,7 @@ First, check whether your package manager already has Zig:
 sudo apt update && apt-cache show zig
 ```
 
-> On Fedora, you use `def`. On Arch Linux, you have other ways. Don't type the command blindly.
+> For more about Package Manager, check [this checkpoint](/en/elementry/tooling/package_manager).
 
 If the command returns a package description, you can install it directly:
 
