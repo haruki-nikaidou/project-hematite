@@ -24,7 +24,9 @@ The power series definition below sidesteps this circularity entirely. It gives 
 
 **Definition.** The **exponential function** $\exp \colon \mathbb{R} \to \mathbb{R}$ is defined by the power series
 
-$$\exp(x) \;\coloneqq\; \sum_{k=0}^{\infty} \frac{x^k}{k!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots \tag{1}$$
+$$
+\exp(x) \coloneqq \sum_{k=0}^{\infty} \frac{x^k}{k!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots \tag{1}
+$$
 
 The partial sums of $(1)$ are polynomials in $x$ (as studied in [Polynomial Functions](../polynomial_functions/)), so $\exp$ is, in a precise sense, the limit of an infinite sequence of polynomials.
 
@@ -32,7 +34,9 @@ The partial sums of $(1)$ are polynomials in $x$ (as studied in [Polynomial Func
 
 Before using $(1)$, you must verify it converges for every real $x$. Apply the **ratio test**: the absolute ratio of consecutive terms is
 
-$$\left\lvert\frac{x^{k+1}/(k+1)!}{x^k/k!}\right\rvert = \frac{|x|}{k+1}.$$
+$$
+\left\lvert\frac{x^{k+1}/(k+1)!}{x^k/k!}\right\rvert = \frac{|x|}{k+1}
+$$
 
 For any fixed $x \in \mathbb{R}$, this ratio tends to $0$ as $k \to \infty$ (the denominator grows without bound). Since $0 < 1$, the ratio test guarantees **absolute convergence** for every $x \in \mathbb{R}$.
 
@@ -53,15 +57,21 @@ So $\exp$ maps $0 \mapsto 1$ and $1 \mapsto e$, and writing $e^x$ as an alternat
 
 The most important algebraic property of $\exp$ is:
 
-$$\exp(x + y) = \exp(x)\,\exp(y) \quad \text{for all } x, y \in \mathbb{R}. \tag{2}$$
+$$
+\exp(x + y) = \exp(x)\exp(y) \quad \text{for all } x, y \in \mathbb{R}. \tag{2}
+$$
 
 *Proof.* Multiply the two absolutely convergent series using the **Cauchy product**:
 
-$$\exp(x)\,\exp(y) = \left(\sum_{j=0}^{\infty}\frac{x^j}{j!}\right)\!\left(\sum_{k=0}^{\infty}\frac{y^k}{k!}\right) = \sum_{n=0}^{\infty}\sum_{j=0}^{n}\frac{x^j}{j!}\cdot\frac{y^{n-j}}{(n-j)!}.$$
+$$
+\exp(x)\,\exp(y) = \left(\sum_{j=0}^{\infty}\frac{x^j}{j!}\right)\!\left(\sum_{k=0}^{\infty}\frac{y^k}{k!}\right) = \sum_{n=0}^{\infty}\sum_{j=0}^{n}\frac{x^j}{j!}\cdot\frac{y^{n-j}}{(n-j)!}.
+$$
 
 Factor $\tfrac{1}{n!}$ from the inner sum and apply the **binomial theorem**:
 
-$$\sum_{j=0}^{n}\frac{x^j\,y^{n-j}}{j!\,(n-j)!} = \frac{1}{n!}\sum_{j=0}^{n}\binom{n}{j}x^j y^{n-j} = \frac{(x+y)^n}{n!}.$$
+$$
+\sum_{j=0}^{n}\frac{x^j\,y^{n-j}}{j!\,(n-j)!} = \frac{1}{n!}\sum_{j=0}^{n}\binom{n}{j}x^j y^{n-j} = \frac{(x+y)^n}{n!}
+$$
 
 Therefore $\exp(x)\,\exp(y) = \displaystyle\sum_{n=0}^{\infty}\dfrac{(x+y)^n}{n!} = \exp(x+y)$.
 
@@ -79,7 +89,9 @@ Equation $(2)$ says $\exp$ converts addition into multiplication — precisely t
 
 *Proof.* Differentiate $(1)$ term by term — valid because the series converges absolutely on all of $\mathbb{R}$:
 
-$$\frac{d}{dx}\exp(x) = \sum_{k=1}^{\infty}\frac{k\,x^{k-1}}{k!} = \sum_{k=1}^{\infty}\frac{x^{k-1}}{(k-1)!} = \sum_{j=0}^{\infty}\frac{x^j}{j!} = \exp(x),$$
+$$
+\frac{d}{dx}\exp(x) = \sum_{k=1}^{\infty}\frac{k\,x^{k-1}}{k!} = \sum_{k=1}^{\infty}\frac{x^{k-1}}{(k-1)!} = \sum_{j=0}^{\infty}\frac{x^j}{j!} = \exp(x),
+$$
 
 where the re-index $j = k - 1$ was used in the last step.
 
@@ -102,7 +114,9 @@ Together, strict positivity and these limits show $\exp$ surjects onto $(0, \inf
 
 With $\ln$ available, you can give a precise, uniform definition of exponentials to any positive base. For $b > 0$, $b \neq 1$, set
 
-$$b^x \;\coloneqq\; \exp(x \ln b). \tag{3}$$
+$$
+b^x \;\coloneqq\; \exp(x \ln b). \tag{3}
+$$
 
 Using the functional equation $(2)$, the familiar exponent rules follow immediately: $b^{x+y} = \exp((x+y)\ln b) = \exp(x\ln b)\,\exp(y\ln b) = b^x b^y$, and similarly $(b^x)^y = b^{xy}$.
 
@@ -114,7 +128,9 @@ The construction of $\ln$ and the full theory of logarithmic functions are defer
 
 Differentiating $(3)$ by the chain rule:
 
-$$\frac{d}{dx}b^x = \frac{d}{dx}\exp(x \ln b) = \ln b \cdot \exp(x \ln b) = \ln b \cdot b^x.$$
+$$
+\frac{d}{dx}b^x = \frac{d}{dx}\exp(x \ln b) = \ln b \cdot \exp(x \ln b) = \ln b \cdot b^x.
+$$
 
 The derivative of $b^x$ equals $b^x$ multiplied by the constant $\ln b$. The **only** base for which this constant equals $1$ is $b = e$, because $\ln e = 1$. For every other base $b \neq e$, differentiation introduces an unavoidable multiplicative factor $\ln b \neq 1$.
 
