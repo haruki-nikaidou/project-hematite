@@ -28,7 +28,9 @@ A **rational function** is a ratio $\tfrac{p(x)}{q(x)}$ of two polynomials (with
 
 A function $f$ is **algebraic** if it satisfies a polynomial equation in $f$ and $x$ with polynomial coefficients, i.e., there exist polynomials $p_0, \ldots, p_n$ (not all zero) such that
 
-$$p_n(x)\,f(x)^n + p_{n-1}(x)\,f(x)^{n-1} + \cdots + p_0(x) = 0. \tag{1}$$
+$$
+p_n(x)f(x)^n + p_{n-1}(x)\,f(x)^{n-1} + \cdots + p_0(x) = 0. \tag{1}
+$$
 
 Every polynomial and every rational function is algebraic (take $n = 1$ in $(1)$). More genuinely, $n$-th roots such as $\sqrt{x}$, $\sqrt[3]{x-1}$, and nested radicals like $\sqrt{1 + \sqrt{x}}$ are algebraic — they satisfy equations of the form $f^n = g(x)$ for a rational function $g$.
 
