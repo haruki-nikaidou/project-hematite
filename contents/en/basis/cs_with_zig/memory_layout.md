@@ -1,11 +1,10 @@
 ---
 title: Memory Layout
 summary: ""
-prerequisites: 
+prerequisites:
   - elementry/computer_science/how_programs_work
   - basis/cs_with_zig/prepare_environment
-  - basis/cs_with_zig/function_intro
-  - basis/data_structure/stack
+  - basis/cs_with_zig/pointer
 aliases: []
 tags: ["Memory", "Systems"]
 updated: 2026-05-13
