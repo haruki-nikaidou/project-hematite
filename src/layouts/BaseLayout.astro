@@ -19,7 +19,6 @@ const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
 <html lang={lang}>
     <head>
         <meta charset="UTF-8" />
-        <Analytics />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{fullTitle}</title>
         {description && <meta name="description" content={description} />}
@@ -45,6 +44,7 @@ const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
                 } catch (_) {}
             })();
         </script>
+        <Analytics />
     </head>
     <body>
         <Nav lang={lang} />
