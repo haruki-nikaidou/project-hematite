@@ -1,45 +1,61 @@
 ---
-import Search from './Search.svelte';
-import ThemeToggle from './ThemeToggle.svelte';
-import type { Locale } from '../lib/constants';
+import Search from "./Search.svelte";
+import ThemeToggle from "./ThemeToggle.svelte";
+import HematiteIcon from "./HematiteIcon.astro";
+import type { Locale } from "../lib/constants";
 
 interface Props {
-  lang: Locale;
+    lang: Locale;
 }
 
 const { lang } = Astro.props;
 ---
 
 <nav class="site-nav" data-pagefind-ignore>
-  <a href={`/${lang}/`} class="nav-logo">
-    Project <span class="logo-accent">Hematite</span>
-  </a>
+    <a href={`/${lang}/`} class="nav-logo">
+        <HematiteIcon size="1.4em" class="nav-logo-icon" />
+        Project <span class="logo-accent">Hematite</span>
+    </a>
 
-  <div class="nav-search">
-    <Search {lang} client:load />
-  </div>
+    <div class="nav-search">
+        <Search {lang} client:load />
+    </div>
 
-  <div class="nav-right">
-    <a href={`/${lang}/index/elementry/`} class="nav-link">Explore</a>
-    <ThemeToggle {lang} client:load />
-  </div>
+    <div class="nav-right">
+        <a href={`/${lang}/index/elementry/`} class="nav-link">Explore</a>
+        <ThemeToggle {lang} client:load />
+    </div>
 </nav>
 
 <style lang="scss">
-  @use '../styles/layout';
+    @use "../styles/layout";
 
-  .nav-link {
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    transition: color var(--transition), background var(--transition);
-
-    &:hover {
-      color: var(--fg);
-      background: var(--surface);
-      text-decoration: none;
+    .nav-logo-icon {
+        color: var(--active);
+        flex-shrink: 0;
+        display: block;
     }
-  }
+
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        transition:
+            color var(--transition),
+            background var(--transition);
+
+        &:hover {
+            color: var(--fg);
+            background: var(--surface);
+            text-decoration: none;
+        }
+    }
 </style>
