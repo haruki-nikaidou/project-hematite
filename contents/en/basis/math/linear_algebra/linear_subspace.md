@@ -2,7 +2,7 @@
 title: Linear Subspace
 summary: "Defines a linear subspace as a subset of a vector space that is closed under addition and scalar multiplication, gives the key characterization theorem, and identifies the important examples that appear throughout linear algebra."
 prerequisites: 
-  - basis/math/linear_algebra/linearly_dependent
+  - basis/math/linear_algebra/linear_span
 aliases: []
 tags: ["Linear Algebra"]
 updated: 2026-05-17
@@ -57,15 +57,9 @@ If $A \in M_{m,n}(F)$, the solution set of the homogeneous system $Ax = \mathbf{
 
 A line in $\mathbb{R}^2$ that does not pass through the origin, say $\{(x, y) : y = x + 1\}$, is not a subspace: it does not contain $(0, 0)$, and adding two points on it gives $(0, 0) + (1, 2) = (1, 2)$ — wait, more concretely: $(1, 2) + (2, 3) = (3, 5)$ lies on the line, but $2 \cdot (1, 2) = (2, 4)$ does not lie on $y = x + 1$. The closure conditions fail.
 
-## The span of a set
+## Spans and bases
 
-Given any subset $S \subseteq V$, the **span** of $S$ is the set of all linear combinations of elements of $S$:
-
-$$\text{span}(S) \coloneqq \left\{ c_1 v_1 + \cdots + c_k v_k : k \ge 0,\ v_i \in S,\ c_i \in F \right\}.$$
-
-The span of the empty set is $\{\mathbf{0}\}$ by convention.
-
-$\text{span}(S)$ is always a subspace of $V$ (check: closed under linear combinations immediately). Moreover, it is the **smallest subspace of $V$ containing $S$**: any subspace that contains $S$ must contain all linear combinations of elements of $S$, hence must contain $\text{span}(S)$.
+From [Linear Span](../linear_span/), the span of any subset $S \subseteq V$ is automatically a subspace — the smallest subspace containing $S$. This gives a rich supply of subspaces from any set of vectors.
 
 ## Bases of a subspace
 
@@ -82,5 +76,5 @@ A basis is a "minimal spanning set" and simultaneously a "maximal independent se
 - Being non-empty and closed under linear combinations automatically ensures $\mathbf{0} \in W$ and all vector space axioms.
 - Key examples: $\{\mathbf{0}\}$, $V$ itself, lines/planes through the origin, and solution sets of homogeneous systems.
 - A subset that does not contain $\mathbf{0}$ (such as a shifted affine subspace) is **not** a subspace.
-- The **span** of any set $S$ is the smallest subspace containing $S$.
+- The **span** of any set $S$ ([Linear Span](../linear_span/)) is the smallest subspace containing $S$.
 - A **basis** of $W$ is a linearly independent spanning set; its size is $\dim W$.
