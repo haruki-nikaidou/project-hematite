@@ -5,6 +5,7 @@ prerequisites:
   - basis/algorithm/time_complexity
   - basis/data_structure/stack
   - basis/cs_with_zig/recursive
+  - basis/cs_with_zig/graph_represent
 aliases: []
 tags:
   - Algorithms

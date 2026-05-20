@@ -4,6 +4,7 @@ summary: "Breadth-first search explores a graph layer by layer from a chosen sou
 prerequisites:
   - basis/algorithm/time_complexity
   - basis/data_structure/queue
+  - basis/cs_with_zig/graph_represent
 aliases: []
 tags:
   - Algorithms
