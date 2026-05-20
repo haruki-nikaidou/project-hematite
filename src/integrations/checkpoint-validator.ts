@@ -6,8 +6,9 @@
  * 4. Computes canonical hashes for graph and aliases per language.
  * 5. Writes a cache file to node_modules/.astro/hematite.json.
  * 6. Injects alias redirects into Astro's config.
+ * 7. Warns if any directory-level path segment is missing a display string or locale translation.
  */
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import type { AstroIntegration } from 'astro';
 import { loadAllCheckpoints } from '../lib/content-loader';
@@ -119,6 +120,13 @@ export default function checkpointValidator(): AstroIntegration {
         writeFileSync(cacheFile, JSON.stringify(cache, null, 2), 'utf8');
         logger.info('Checkpoint cache written.');
 
+        // Warn about path segments missing display strings / translations
+        const displayJsonPath = resolve(
+          config.root.pathname.replace(/^\/([A-Za-z]:)/, '$1'),
+          'src/lib/display.json',
+        );
+        warnMissingDisplayStrings(cache, displayJsonPath, logger);
+
         // Inject alias redirects
         const redirects: Record<string, string> = {};
         for (const locale of LOCALES) {
@@ -141,9 +149,54 @@ export default function checkpointValidator(): AstroIntegration {
   };
 }
 
+/**
+ * Warn about directory-level path segments that are missing a display string (or a
+ * per-locale translation) in `src/lib/display.json`.
+ *
+ * A "directory segment" is any path part of a cpId that is NOT the leaf filename —
+ * e.g. for `basis/algorithm/sort/bubble_sort` the segments are `basis`, `algorithm`, `sort`.
+ * These are the values that `segmentLabel()` is called with in index pages.
+ */
+function warnMissingDisplayStrings(
+  cache: HematiteCache,
+  displayJsonPath: string,
+  logger: { warn: (msg: string) => void },
+): void {
+  let displayMap: Record<string, Record<string, string>>;
+  try {
+    displayMap = JSON.parse(readFileSync(displayJsonPath, 'utf8'));
+  } catch {
+    logger.warn(`display.json not found at ${displayJsonPath} — skipping display-string check.`);
+    return;
+  }
+
+  const allSegments = new Set<string>();
+  for (const locale of LOCALES) {
+    for (const cpId of Object.keys(cache.langs[locale].nodes)) {
+      const parts = cpId.split('/');
+      // All parts except the leaf are directory segments that need a display label.
+      for (const seg of parts.slice(0, -1)) {
+        allSegments.add(seg);
+      }
+    }
+  }
+
+  for (const seg of [...allSegments].sort()) {
+    const entry = displayMap[seg];
+    if (!entry) {
+      logger.warn(`display.json: segment "${seg}" has no entry — add a display string for it.`);
+      continue;
+    }
+    for (const locale of LOCALES) {
+      if (!entry[locale]) {
+        logger.warn(`display.json: segment "${seg}" is missing a "${locale}" translation.`);
+      }
+    }
+  }
+}
+
 /** Read the cache written by the integration. Throws if not found. */
 export function readCache(root: string): HematiteCache {
-  const { readFileSync } = require('node:fs');
   const cacheFile = join(root, 'node_modules/.astro/hematite.json');
   const raw = readFileSync(cacheFile, 'utf8');
   return JSON.parse(raw) as HematiteCache;
