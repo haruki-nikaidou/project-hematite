@@ -3,6 +3,7 @@ title: 外測度
 summary: "外測度は可算個の開区間の被覆に対する全長の下限を取ることで、空間のすべての部分集合に大きさを割り当てる。このチェックポイントでは外測度を定義し、単調性と可算劣加法性を証明し、一般に可算加法性が成り立たない理由——可測集合への制限の動機——を示す。"
 prerequisites:
   - basis/math/measure/sigma_algebra
+  - basis/math/analysis/supremum_infimum
 aliases: []
 tags:
   - Measure Theory
@@ -13,7 +14,7 @@ $\mathbb{R}$ のすべての部分集合に「大きさ」を割り当てる関�
 
 ## 定義
 
-考え方は、集合 $E$ の大きさを開区間で外側から覆い、その長さの和の下限を取ることで*外から*近似するというものだ。
+考え方は、集合 $E$ の大きさを開区間で外側から覆い、その長さの和の[下限](../analysis/supremum_infimum/)を取ることで*外から*近似するというものだ。
 
 **定義。** 任意の集合 $E \subseteq \mathbb{R}$ に対して、$E$ の**ルベーグ外測度**（Lebesgue outer measure）は
 
