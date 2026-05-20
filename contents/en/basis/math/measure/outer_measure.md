@@ -3,6 +3,7 @@ title: Outer Measure
 summary: "An outer measure assigns a size to every subset of a space by taking the infimum of total lengths over countable open covers. This checkpoint defines outer measure, proves its monotonicity and countable sub-additivity, and shows why countable additivity fails in general — motivating the restriction to measurable sets."
 prerequisites:
   - basis/math/measure/sigma_algebra
+  - basis/math/analysis/supremum_infimum
 aliases: []
 tags:
   - Measure Theory
@@ -13,7 +14,7 @@ You want a function that assigns a "size" to every subset of $\mathbb{R}$. The [
 
 ## The definition
 
-The idea is to approximate the size of a set $E$ from the *outside* by covering it with open intervals and summing up their lengths. Taking the infimum over all countable covers gives the smallest possible total length needed to cover $E$.
+The idea is to approximate the size of a set $E$ from the *outside* by covering it with open intervals and summing up their lengths. Taking the [infimum](../analysis/supremum_infimum/) over all countable covers gives the smallest possible total length needed to cover $E$.
 
 **Definition.** For any set $E \subseteq \mathbb{R}$, the **Lebesgue outer measure** of $E$ is
 

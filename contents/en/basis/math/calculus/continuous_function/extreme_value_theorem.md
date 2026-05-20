@@ -3,6 +3,7 @@ title: Extreme Value Theorem
 summary: "A continuous function on a closed bounded interval attains both a maximum and a minimum. This checkpoint proves the extreme value theorem using boundedness arguments, and explains why dropping any hypothesis — continuity, closedness, or boundedness — destroys the conclusion."
 prerequisites:
   - basis/math/calculus/continuous_function/continuous
+  - basis/math/analysis/supremum_infimum
 aliases: []
 tags:
   - Calculus
@@ -22,7 +23,7 @@ $$
 
 ## Proof
 
-The proof has two stages: first show $f$ is bounded above, then show the supremum is actually attained.
+The proof has two stages: first show $f$ is bounded above, then show the [supremum](../../analysis/supremum_infimum/) is actually attained.
 
 ### Stage 1: $f$ is bounded above
 
@@ -40,7 +41,7 @@ By the same argument applied to $-f$, the function $f$ is also bounded below.
 
 ### Stage 2: $f$ attains its supremum
 
-Let $M \coloneqq \sup_{x \in [a,b]} f(x)$, which is finite by Stage 1. By the definition of supremum, for each $n \in \mathbb{N}$ there exists $y_n \in [a, b]$ with
+Let $M \coloneqq \sup_{x \in [a,b]} f(x)$, which is finite by Stage 1. By the [definition of supremum](../../analysis/supremum_infimum/), for each $n \in \mathbb{N}$ there exists $y_n \in [a, b]$ with
 
 $$
 M - \frac{1}{n} < f(y_n) \leq M.
