@@ -1,6 +1,6 @@
 ---
 title: ロピタルの定理
-summary: "ロピタルの定理（L'Hôpital's rule）は $0/0$ や $\infty/\infty$ の不定形の極限を、$f/g$ の代わりに $f'/g'$ の極限に置き換えることで計算できるようにする。このチェックポイントではコーシーの平均値定理を用いてこの定理を証明し、各不定形をその形に帰着させる方法を示す。"
+summary: "ロピタルの定理（L'Hôpital's rule）は $0/0$ や $\\infty/\\infty$ の不定形の極限を、$f/g$ の代わりに $f'/g'$ の極限に置き換えることで計算できるようにする。このチェックポイントではコーシーの平均値定理を用いてこの定理を証明し、各不定形をその形に帰着させる方法を示す。"
 prerequisites:
   - basis/math/calculus/differential/cauchys_finite-increment_theorem
 aliases: []

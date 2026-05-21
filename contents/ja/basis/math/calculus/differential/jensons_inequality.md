@@ -1,6 +1,6 @@
 ---
 title: イェンセンの不等式
-summary: "$f$ がある区間上で凸であり、$x_1, \ldots, x_n$ がその区間に属する点で非負の重み $\lambda_i$ の和が1であるとき、$f(\sum \lambda_i x_i) \leq \sum \lambda_i f(x_i)$ が成り立つ。このチェックポイントでは凸性の二点定義から $n$ に関する帰納法によってイェンセンの不等式を証明し、狭義凸の場合の等号条件を明らかにする。"
+summary: "$f$ がある区間上で凸であり、$x_1, \\ldots, x_n$ がその区間に属する点で非負の重み $\\lambda_i$ の和が1であるとき、$f(\\sum \\lambda_i x_i) \\leq \\sum \\lambda_i f(x_i)$ が成り立つ。このチェックポイントでは凸性の二点定義から $n$ に関する帰納法によってイェンセンの不等式を証明し、狭義凸の場合の等号条件を明らかにする。"
 prerequisites:
   - basis/math/calculus/differential/convex
 aliases: []
