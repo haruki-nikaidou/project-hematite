@@ -11,7 +11,29 @@ pnpm preview    # Preview production build
 pnpm astro check  # TypeScript/Astro type checking
 ```
 
+### CLI tool (`scripts/hematite-cli.ts`)
+
+```bash
+pnpm cli dep <cpId> [--lang <locale>]   # List all transitive prerequisites of a checkpoint
+pnpm cli check-i18n [path-prefix]       # Find EN checkpoints missing a Japanese translation
+```
+
+Examples:
+```bash
+pnpm cli dep basis/algorithm/intro
+pnpm cli dep basis/math/induction --lang ja
+pnpm cli check-i18n                     # check all checkpoints
+pnpm cli check-i18n basis/math          # check only under basis/math/
+```
+
 Requires Node.js ≥ 22.12.0 and pnpm.
+
+## Agent skills
+
+Two Cursor agent skills live under `.claude/skills/` and are loaded automatically when relevant:
+
+- **`write-checkpoint`** (`.claude/skills/write-checkpoint/SKILL.md`): Author a new English checkpoint — cpId selection, frontmatter schema, body structure, KaTeX math, code blocks, and DAG hygiene. Triggered when writing or editing files under `contents/en/`.
+- **`translate-checkpoint`** (`.claude/skills/translate-checkpoint/SKILL.md`): Translate an existing checkpoint into Japanese (or another locale) — which frontmatter fields to translate vs. preserve verbatim, tone and terminology rules, the "translation pending" marker. Triggered when editing files under `contents/ja/`.
 
 ## Architecture
 
