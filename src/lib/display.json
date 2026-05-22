@@ -28,6 +28,15 @@
   "linear_algebra": { "en": "Linear Algebra", "ja": "線形代数学" },
   "topology": { "en": "Topology", "ja": "位相論" },
   "abstract_algebra": { "en": "Abstract Algebra", "ja": "抽象代数学" },
+  "integral_theory": { "en": "Integral Theory", "ja": "積分論" },
+  "probability": { "en": "Probability", "ja": "確率論" },
+  "random_variables": { "en": "Random Variables", "ja": "確率変数" },
+  "2d_random_variables": {
+    "en": "2D Random Variables",
+    "ja": "二次元確率変数"
+  },
+  "conditional": { "en": "Conditional Probability", "ja": "条件付き確率" },
+  "markov_chain": { "en": "Markov Chains", "ja": "マルコフ連鎖" },
   "cs_with_zig": {
     "en": "Computer Science with Zig",
     "ja": "Zigで学ぶ計算機科学"
