@@ -1,0 +1,229 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { LOCALES } from "../../lib/constants";
+import type { Locale } from "../../lib/constants";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths: GetStaticPaths = () => {
+    return LOCALES.map((lang) => ({ params: { lang } }));
+};
+
+const { lang } = Astro.params as { lang: Locale };
+
+const copy = {
+    en: {
+        title: "About",
+        description:
+            "Project Hematite — open Rust education organized as a DAG of learning checkpoints.",
+        heroTitle: "About Project Hematite",
+        heroLead:
+            "An open education site for future Rust developers. Each unit of learning is a checkpoint that explicitly declares what you should understand first.",
+        ideaTitle: "The idea: DAG-based knowledge management",
+        ideaBody:
+            "Instead of a flat list of articles, content is arranged as a directed acyclic graph (DAG). Every checkpoint lists its prerequisites, so learners always know what to study next and external tools can reason about progress along the same structure.",
+        ideaLink: "Read the full rationale on the blog",
+        featuresTitle: "Features",
+        features: [
+            "DAG-based prerequisites — cycles are detected and rejected at build time.",
+            "Multi-language content — English (primary) and Japanese, with graceful fallback when a translation is pending.",
+            "Five learning levels — from elementary foundations to cutting-edge topics.",
+            "Public graph API — the full prerequisite graph and alias map are served as static, content-hashed JSON for external progress trackers and dashboards.",
+            "Full-text search — powered by Pagefind, fully static, no server required.",
+            "Math support — KaTeX renders inline and display math in checkpoint pages.",
+        ],
+        authorTitle: "Author",
+        authorName: "Haruki Nikaidou",
+        authorBio:
+            "Maintainer of Project Hematite. Contributions, issues, and feedback are welcome on GitHub.",
+        githubProfile: "GitHub profile",
+        blog: "Blog",
+        projectRepo: "Project repository",
+    },
+    ja: {
+        title: "このサイトについて",
+        description:
+            "Project Hematite — 学習チェックポイントの DAG で整理された Rust 向けオープン教育サイト。",
+        heroTitle: "Project Hematite について",
+        heroLead:
+            "これから Rust を学ぶ人のためのオープン教育サイトです。各学習単位はチェックポイントとして、先に理解すべき内容を明示的に宣言します。",
+        ideaTitle: "コンセプト：DAG による知識管理",
+        ideaBody:
+            "記事の平坦な一覧ではなく、有向非巡回グラフ（DAG）としてコンテンツを構成しています。各チェックポイントが前提知識を列挙するため、学習者は次に何を学ぶべきか常に把握でき、外部ツールも同じ構造で進捗を扱えます。",
+        ideaLink: "ブログで詳しい背景を読む",
+        featuresTitle: "機能",
+        features: [
+            "DAG ベースの前提知識 — ビルド時に循環を検出し、拒否します。",
+            "多言語コンテンツ — 英語（主）と日本語。翻訳待ちの場合は適切にフォールバックします。",
+            "5 つの学習レベル — 入門の基礎から最先端トピックまで。",
+            "公開グラフ API — 前提関係グラフとエイリアスマップを、コンテンツハッシュ付きの静的 JSON として提供。外部の進捗トラッカーやダッシュボード向け。",
+            "全文検索 — Pagefind による完全静的検索。サーバー不要。",
+            "数式サポート — チェックポイントページで KaTeX によりインライン・ブロック数式を表示。",
+        ],
+        authorTitle: "作者",
+        authorName: "Nikaidou Haruki",
+        authorBio:
+            "Project Hematite のメンテナーです。コントリビューション・Issue・フィードバックは GitHub で歓迎します。",
+        githubProfile: "GitHub プロフィール",
+        blog: "ブログ",
+        projectRepo: "プロジェクトリポジトリ",
+    },
+} as const;
+
+const c = copy[lang] ?? copy.en;
+
+const BLOG_URL = "https://blog.plr.moe/blog/dag-based-knowledge-manage";
+const GITHUB_PROFILE = "https://github.com/haruki-nikaidou";
+const GITHUB_REPO = "https://github.com/haruki-nikaidou/project-hematite";
+const BLOG_HOME = "https://blog.plr.moe";
+---
+
+<BaseLayout title={c.title} description={c.description} lang={lang}>
+    <div class="about-wrap" data-pagefind-ignore>
+        <header class="about-hero">
+            <h1>{c.heroTitle}</h1>
+            <p class="about-lead">{c.heroLead}</p>
+        </header>
+
+        <section class="about-section">
+            <h2>{c.ideaTitle}</h2>
+            <p>{c.ideaBody}</p>
+            <p>
+                <a href={BLOG_URL} rel="noopener noreferrer" target="_blank">
+                    {c.ideaLink}
+                </a>
+            </p>
+        </section>
+
+        <section class="about-section">
+            <h2>{c.featuresTitle}</h2>
+            <ul class="about-features">
+                {c.features.map((item) => <li>{item}</li>)}
+            </ul>
+        </section>
+
+        <section class="about-section about-author">
+            <h2>{c.authorTitle}</h2>
+            <p class="author-name">{c.authorName}</p>
+            <p>{c.authorBio}</p>
+            <ul class="about-links">
+                <li>
+                    <a
+                        href={GITHUB_PROFILE}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        {c.githubProfile}
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href={BLOG_HOME}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        {c.blog}
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href={GITHUB_REPO}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        {c.projectRepo}
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</BaseLayout>
+
+<style lang="scss">
+    @use "../../styles/layout";
+
+    .about-wrap {
+        max-width: var(--content-width);
+        margin: 0 auto;
+        padding: var(--space-8) var(--space-6) var(--space-16);
+    }
+
+    .about-hero {
+        margin-bottom: var(--space-12);
+
+        h1 {
+            margin: 0 0 var(--space-4);
+            letter-spacing: -0.02em;
+        }
+    }
+
+    .about-lead {
+        font-size: 1.1rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .about-section {
+        margin-bottom: var(--space-12);
+
+        h2 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin: 0 0 var(--space-4);
+            border: none;
+            padding: 0;
+        }
+
+        p {
+            line-height: 1.65;
+            margin: 0 0 var(--space-4);
+        }
+
+        a {
+            color: var(--active);
+        }
+    }
+
+    .about-features {
+        margin: 0;
+        padding-left: 1.25rem;
+        line-height: 1.65;
+
+        li {
+            margin-bottom: var(--space-3);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .about-author {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: var(--space-6);
+    }
+
+    .author-name {
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: var(--fg);
+        margin-bottom: var(--space-2) !important;
+    }
+
+    .about-links {
+        list-style: none;
+        padding: 0;
+        margin: var(--space-4) 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+
+        a {
+            font-size: 0.95rem;
+        }
+    }
+</style>

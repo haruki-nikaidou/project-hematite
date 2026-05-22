@@ -46,6 +46,40 @@ const levelDescriptions: Record<string, Record<string, string>> = {
 };
 
 const desc = levelDescriptions[lang] ?? levelDescriptions.en;
+
+const howToUse: Record<
+    Locale,
+    { title: string; intro: string; steps: string[]; levelsLabel: string; categoriesLabel: string }
+> = {
+    en: {
+        title: "How to use this site",
+        intro:
+            "Project Hematite organizes Rust learning as checkpoints in a prerequisite graph. Here is how to get started:",
+        steps: [
+            "Search for any concept in the bar above, or browse by Level or Category below.",
+            "Open a checkpoint and read its prerequisites first — they point to what you should understand before this topic.",
+            "Use the public graph at /latest.json to connect your own progress tracker or dashboard to the same DAG.",
+            "Switch language on any checkpoint page via the language switcher when a translation is available.",
+        ],
+        levelsLabel: "Levels",
+        categoriesLabel: "Categories",
+    },
+    ja: {
+        title: "このサイトの使い方",
+        intro:
+            "Project Hematite は Rust の学習を、前提関係グラフ上のチェックポイントとして整理しています。次の手順で始めてください:",
+        steps: [
+            "上の検索バーで概念を探すか、下のレベル・カテゴリから一覧を開きます。",
+            "チェックポイントを開き、前提知識を先に読みます — このトピックの前に理解すべき内容へのリンクです。",
+            "公開グラフ /latest.json を使えば、同じ DAG に自分の進捗トラッカーやダッシュボードを接続できます。",
+            "翻訳があるチェックポイントでは、ページ上の言語切替で英語と日本語を切り替えられます。",
+        ],
+        levelsLabel: "レベル",
+        categoriesLabel: "カテゴリ",
+    },
+};
+
+const guide = howToUse[lang] ?? howToUse.en;
 ---
 
 <BaseLayout title="Project Hematite" lang={lang}>
@@ -69,8 +103,16 @@ const desc = levelDescriptions[lang] ?? levelDescriptions.en;
             </div>
         </header>
 
+        <section class="home-intro" data-pagefind-ignore>
+            <h2 class="intro-title">{guide.title}</h2>
+            <p class="intro-lead">{guide.intro}</p>
+            <ol class="intro-steps">
+                {guide.steps.map((step) => <li>{step}</li>)}
+            </ol>
+        </section>
+
         <section class="home-section">
-            <h2 class="section-label">Levels</h2>
+            <h2 class="section-label">{guide.levelsLabel}</h2>
             <div class="card-grid">
                 {
                     LEVELS.map((level) => (
@@ -86,7 +128,7 @@ const desc = levelDescriptions[lang] ?? levelDescriptions.en;
         </section>
 
         <section class="home-section">
-            <h2 class="section-label">Categories</h2>
+            <h2 class="section-label">{guide.categoriesLabel}</h2>
             <div class="card-grid">
                 {
                     CATEGORIES.map((cat) => (
@@ -141,6 +183,43 @@ const desc = levelDescriptions[lang] ?? levelDescriptions.en;
     .home-search {
         max-width: 520px;
         margin: 0 auto;
+    }
+
+    .home-intro {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: var(--space-8);
+        margin-bottom: var(--space-4);
+    }
+
+    .intro-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 var(--space-4);
+        letter-spacing: -0.01em;
+        border: none;
+        padding: 0;
+    }
+
+    .intro-lead {
+        color: var(--muted);
+        line-height: 1.6;
+        margin: 0 0 var(--space-6);
+    }
+
+    .intro-steps {
+        margin: 0;
+        padding-left: 1.25rem;
+        line-height: 1.65;
+
+        li {
+            margin-bottom: var(--space-3);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 
     .home-section {

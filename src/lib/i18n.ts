@@ -11,6 +11,7 @@ export function isLocale(s: string): s is Locale {
 const ui = {
   en: {
     "nav.home": "Home",
+    "nav.about": "About",
     "nav.search.placeholder": "Search checkpoints…",
     "cp.prerequisites": "Prerequisites",
     "cp.dependents": "Used by",
@@ -33,6 +34,7 @@ const ui = {
   },
   ja: {
     "nav.home": "ホーム",
+    "nav.about": "このサイトについて",
     "nav.search.placeholder": "チェックポイントを検索…",
     "cp.prerequisites": "前提知識",
     "cp.dependents": "これを使うもの",

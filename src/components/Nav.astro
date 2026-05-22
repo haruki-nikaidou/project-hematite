@@ -2,6 +2,7 @@
 import Search from "./Search.svelte";
 import ThemeToggle from "./ThemeToggle.svelte";
 import HematiteIcon from "./HematiteIcon.astro";
+import { t } from "../lib/i18n";
 import type { Locale } from "../lib/constants";
 
 interface Props {
@@ -22,7 +23,7 @@ const { lang } = Astro.props;
     </div>
 
     <div class="nav-right">
-        <a href={`/${lang}/index/elementry/`} class="nav-link">Explore</a>
+        <a href={`/${lang}/about/`} class="nav-link">{t(lang, "nav.about")}</a>
         <ThemeToggle {lang} client:load />
     </div>
 </nav>
