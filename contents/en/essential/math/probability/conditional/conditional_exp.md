@@ -11,3 +11,106 @@ tags:
   - Expectation
 updated: 2026-05-22
 ---
+
+The [expectation](../expectation/) $E[X]$ is the probability-weighted average of $X$ over the whole sample space. **Conditional expectation** asks the same question but restricts to a sub-population: given that event $B$ occurred, or given that a random variable $Y$ took value $y$, what is the average of $X$?
+
+## Conditional expectation given an event
+
+Let $B \in \mathcal{F}$ with $P(B) > 0$ and let $X$ be an integrable random variable. The **conditional expectation of $X$ given $B$** is the expectation of $X$ under the [conditional probability](../conditional_pr/) $P(\cdot \mid B)$:
+
+$$
+E[X \mid B] \coloneqq \int_\Omega X \, dP(\cdot \mid B).
+$$
+
+In the **discrete case** (where $X$ takes values $x_1, x_2, \ldots$):
+
+$$
+E[X \mid B] = \sum_k x_k \, P(X = x_k \mid B).
+$$
+
+In the **absolutely continuous case**, if $(X, \mathbf{1}_B)$ has a well-defined conditional density $f_{X \mid B}$:
+
+$$
+E[X \mid B] = \int_{-\infty}^{+\infty} x \, f_{X \mid B}(x) \, dx.
+$$
+
+The result $E[X \mid B]$ is a **constant** — it is a single number, not a random variable.
+
+## Conditional expectation given a random variable
+
+The more general and powerful concept conditions on the value of a random variable $Y$.
+
+### Discrete case
+
+If $Y$ takes values $y_1, y_2, \ldots$ and $P(Y = y) > 0$, define for each such $y$:
+
+$$
+E[X \mid Y = y] \coloneqq \sum_k x_k \, P(X = x_k \mid Y = y).
+$$
+
+### Jointly continuous case
+
+If $(X, Y)$ has joint density $f_{X,Y}$ and marginal $f_Y(y) > 0$, the **conditional density** of $X$ given $Y = y$ is
+
+$$
+f_{X \mid Y}(x \mid y) = \frac{f_{X,Y}(x, y)}{f_Y(y)},
+$$
+
+and
+
+$$
+E[X \mid Y = y] = \int_{-\infty}^{+\infty} x \, f_{X \mid Y}(x \mid y) \, dx.
+$$
+
+### $E[X \mid Y]$ as a random variable
+
+The expression $E[X \mid Y = y]$ is a deterministic function of $y$; call it $g(y)$. Composing with $Y$ gives the **conditional expectation**
+
+$$
+E[X \mid Y] \coloneqq g(Y).
+$$
+
+This is a **random variable** — a function of the random variable $Y$. Before $Y$ is observed you do not know which value $g(y)$ will take. Informally, $E[X \mid Y]$ is the best prediction of $X$ from $Y$ in the mean-square sense: among all functions $h(Y)$, the one minimising $E[(X - h(Y))^2]$ is $h = g$.
+
+## Key properties
+
+Throughout, $X, X_1, X_2$ are integrable random variables and $Y, Z$ are arbitrary random variables.
+
+### Linearity
+
+$$
+E[a X_1 + b X_2 \mid Y] = a \, E[X_1 \mid Y] + b \, E[X_2 \mid Y].
+$$
+
+### Monotonicity
+
+If $X_1 \leq X_2$ almost surely, then $E[X_1 \mid Y] \leq E[X_2 \mid Y]$ almost surely.
+
+### Taking out what is known
+
+If $h$ is a measurable function such that $h(Y) X$ is integrable:
+
+$$
+E[h(Y) \, X \mid Y] = h(Y) \, E[X \mid Y]. \tag{1}
+$$
+
+Once you know $Y$, the factor $h(Y)$ is a constant from the perspective of $P(\cdot \mid Y = y)$ and factors out of the expectation.
+
+**Example.** If $Y$ and $X$ are independent, then $E[X \mid Y] = E[X]$ (a constant function), and the identity gives $E[Y \cdot X \mid Y] = Y \cdot E[X]$, so $E[YX] = E[Y] E[X]$ — recovering the standard independence formula.
+
+### Iterated conditioning
+
+If $Y = f(Z)$ for some measurable function $f$ (so $Y$ is "coarser" than $Z$):
+
+$$
+E\!\left[E[X \mid Z] \mid Y\right] = E[X \mid Y]. \tag{2}
+$$
+
+Conditioning on $Y$ after having conditioned on the finer $Z$ washes out the extra precision: you end up with just the $Y$-level information.
+
+## Summary
+
+- **$E[X \mid B]$**: the expectation of $X$ under $P(\cdot \mid B)$; a constant when $B$ is a fixed event with $P(B) > 0$.
+- **$E[X \mid Y = y]$**: the conditional mean of $X$ when $Y$ is known to equal $y$; a deterministic function of $y$.
+- **$E[X \mid Y]$**: the random variable $g(Y)$ where $g(y) = E[X \mid Y = y]$; it is the best mean-square predictor of $X$ from $Y$.
+- Key properties: **linearity**, **monotonicity**, **taking out what is known** ($E[h(Y) X \mid Y] = h(Y) E[X \mid Y]$), and **iterated conditioning** ($E[E[X \mid Z] \mid Y] = E[X \mid Y]$ when $Y$ is coarser than $Z$).
