@@ -41,5 +41,10 @@
     "en": "Computer Science with Zig",
     "ja": "Zigで学ぶ計算機科学"
   },
-  "function": { "en": "Function", "ja": "関数" }
+  "function": { "en": "Function", "ja": "関数" },
+  "types": { "en": "Types", "ja": "型" },
+  "traits": { "en": "Traits", "ja": "トレイト" },
+  "memory": { "en": "Memory", "ja": "メモリ" },
+  "control_flow": { "en": "Control Flow", "ja": "制御フロー" },
+  "std": { "en": "Standard Library", "ja": "標準ライブラリ" }
 }
