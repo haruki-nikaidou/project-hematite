@@ -25,7 +25,7 @@ const copy = {
         featuresTitle: "Features",
         features: [
             "DAG-based prerequisites — cycles are detected and rejected at build time.",
-            "Multi-language content — English (primary) and Japanese, with graceful fallback when a translation is pending.",
+            "Multi-language content — English (primary), Japanese, and Traditional Chinese, with graceful fallback when a translation is pending.",
             "Five learning levels — from elementary foundations to cutting-edge topics.",
             "Public graph API — the full prerequisite graph and alias map are served as static, content-hashed JSON for external progress trackers and dashboards.",
             "Full-text search — powered by Pagefind, fully static, no server required.",
@@ -53,7 +53,7 @@ const copy = {
         featuresTitle: "機能",
         features: [
             "DAG ベースの前提知識 — ビルド時に循環を検出し、拒否します。",
-            "多言語コンテンツ — 英語（主）と日本語。翻訳待ちの場合は適切にフォールバックします。",
+            "多言語コンテンツ — 英語（主）・日本語・繁体字中国語。翻訳待ちの場合は適切にフォールバックします。",
             "5 つの学習レベル — 入門の基礎から最先端トピックまで。",
             "公開グラフ API — 前提関係グラフとエイリアスマップを、コンテンツハッシュ付きの静的 JSON として提供。外部の進捗トラッカーやダッシュボード向け。",
             "全文検索 — Pagefind による完全静的検索。サーバー不要。",
@@ -66,6 +66,34 @@ const copy = {
         githubProfile: "GitHub プロフィール",
         blog: "ブログ",
         projectRepo: "プロジェクトリポジトリ",
+    },
+    "zh-tw": {
+        title: "關於本站",
+        description:
+            "Project Hematite —— 以學習檢查點 DAG 組織的 Rust 開放教育網站。",
+        heroTitle: "關於 Project Hematite",
+        heroLead:
+            "一個為未來 Rust 開發者打造的開放教育網站。每個學習單位都是一個檢查點，明確宣告你應先理解哪些內容。",
+        ideaTitle: "核心理念：以 DAG 管理知識",
+        ideaBody:
+            "內容並非平鋪直敘的文章清單，而是組織成一張有向無環圖（DAG）。每個檢查點都列出其先備知識，讓學習者隨時知道接下來該學什麼，外部工具也能依循同一結構推斷學習進度。",
+        ideaLink: "在部落格閱讀完整理念",
+        featuresTitle: "功能特色",
+        features: [
+            "以 DAG 為基礎的先備關係 —— 在建置階段偵測並拒絕循環。",
+            "多語言內容 —— 英文（主）、日文與繁體中文，翻譯尚未完成時會優雅地回退。",
+            "五個學習等級 —— 從入門基礎到前沿主題。",
+            "公開圖譜 API —— 完整的先備關係圖與別名對照表，以內容雜湊的靜態 JSON 提供，供外部進度追蹤器與儀表板使用。",
+            "全文搜尋 —— 由 Pagefind 驅動，完全靜態，無需伺服器。",
+            "數學支援 —— 在檢查點頁面以 KaTeX 渲染行內與區塊數學式。",
+        ],
+        authorTitle: "作者",
+        authorName: "Nikaidou Haruki",
+        authorBio:
+            "Project Hematite 的維護者。歡迎在 GitHub 提交貢獻、Issue 與意見回饋。",
+        githubProfile: "GitHub 個人頁面",
+        blog: "部落格",
+        projectRepo: "專案儲存庫",
     },
 } as const;
 

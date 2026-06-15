@@ -1,6 +1,6 @@
 ---
 name: translate-checkpoint
-description: Translate an existing Project Hematite checkpoint from English into another locale (primarily Japanese) — covers which frontmatter fields to translate vs. preserve verbatim, file placement at `contents/<lang>/<cpId>.md`, Japanese-specific tone and terminology rules, code/math handling, and the "translation pending" marker for partial work. Use whenever the user asks to translate, localise, or produce a Japanese (or other-locale) version of a checkpoint, or edits any file under `contents/ja/` (or another non-English locale).
+description: Translate an existing Project Hematite checkpoint from English into another locale (Japanese `ja` or Traditional Chinese for Taiwan `zh-tw`) — covers which frontmatter fields to translate vs. preserve verbatim, file placement at `contents/<lang>/<cpId>.md`, per-locale tone and terminology rules, code/math handling, and the "translation pending" marker for partial work. Use whenever the user asks to translate, localise, or produce a Japanese or Traditional Chinese (or other-locale) version of a checkpoint, or edits any file under `contents/ja/` or `contents/zh-tw/` (or another non-English locale).
 ---
 
 # Translate Checkpoint
@@ -16,7 +16,7 @@ contents/en/<cpId>.md          ← must exist
 contents/<lang>/<cpId>.md      ← the file you will create or edit
 ```
 
-`<lang>` is currently `ja`. The cpId is identical across locales — it does not get translated.
+`<lang>` is `ja` (Japanese) or `zh-tw` (Traditional Chinese, Taiwan). The cpId is identical across locales — it does not get translated.
 
 If the English file is missing, stop and use [write-checkpoint](../write-checkpoint/SKILL.md) to author it first.
 
@@ -114,15 +114,84 @@ When `<lang> = ja`:
 - Math (`$…$` and `$$…$$`) stays in LaTeX. Translate only `\text{…}` labels where they are natural-language and helpful.
 - Punctuation: use full-width Japanese punctuation in prose (`、`, `。`, `（）`); keep ASCII punctuation inside math, code, and inline `` `code` ``.
 
-## 4. Body structure stays identical
+## 4. Traditional Chinese (Taiwan) — zh-tw-specific rules
+
+When `<lang> = zh-tw`:
+
+- Use **Traditional characters only** (正體/繁體). Never use Simplified Chinese characters.
+- Use **Taiwan CS vocabulary**, not Mainland Chinese terms:
+  | Prefer (Taiwan) | Avoid (Mainland) |
+  |-----------------|-----------------|
+  | 程式 (program/code) | 程序 |
+  | 記憶體 (memory) | 内存 |
+  | 函式 / 函數 (function) | 函数 |
+  | 指標 (pointer) | 指针 |
+  | 編譯 (compile) | 编译 |
+  | 物件 (object) | 对象 |
+  | 陣列 (array) | 数组 |
+  | 執行緒 (thread) | 线程 |
+  | 迴圈 (loop) | 循环 |
+  | 字串 (string) | 字符串 |
+  | 運算子 (operator) | 运算符 |
+  | 型別 (type) | 类型 |
+- **First-mention convention**: established Chinese term + English gloss in parentheses on first mention, then drop the gloss. Examples: `堆疊（stack）`, `遞迴（recursion）`, `所有權（ownership）`, `借用（borrowing）`.
+- **Punctuation**: use full-width CJK punctuation in prose (`，` `。` `（）` `：` `；`); keep ASCII punctuation inside math, code, and inline `` `code` `` — same boundary rule as Japanese.
+- Section headings can be rephrased to sound natural in Traditional Chinese — do not translate word-for-word if the result reads awkwardly.
+- Tags are fully translated into Traditional Chinese using Taiwan vocabulary; follow the same length/order rules as §2.1. Tags that are proper nouns or product names (`Rust`, `KaTeX`, `LLVM`) stay as-is.
+- **Translation-pending marker**: use this HTML comment at the very top of the body (immediately after the closing `---`) when a translation is partial:
+  ```html
+  <!-- TODO: 翻譯中 / Translation in progress -->
+  ```
+  Remove the marker once the translation is complete.
+
+### Worked frontmatter example (zh-tw)
+
+English (`contents/en/basis/math/analysis/e.md`):
+
+```yaml
+---
+title: e (Base of Natural Logarithm)
+summary: "Introduces Euler's number e ≈ 2.71828, defined as the limit of compound growth, shown to equal an infinite series of reciprocal factorials, and proved irrational."
+prerequisites:
+  - basis/math/analysis/real_number_a
+  - basis/math/analysis/limit
+aliases: []
+tags: ["Number", "Constant"]
+updated: 2026-05-13
+---
+```
+
+Traditional Chinese (`contents/zh-tw/basis/math/analysis/e.md`):
+
+```yaml
+---
+title: e（自然對數的底數）
+summary: "介紹歐拉數 e ≈ 2.71828，以複利成長的極限加以定義，說明其等於倒數階乘的無窮級數，並證明其為無理數。"
+prerequisites:
+  - basis/math/analysis/real_number_a
+  - basis/math/analysis/limit
+aliases: []
+tags: ["數", "常數"]
+updated: 2026-05-13
+---
+```
+
+Note: `prerequisites`, `aliases`, `updated` are byte-identical. `title`, `summary`, and `tags` are all translated into Traditional Chinese using Taiwan vocabulary.
+
+## 5. Body structure stays identical
 
 The translated file mirrors the English structure section-by-section. **Do not** reorder, add, or omit sections. The summary list at the end (required for `elementry` and `basis`) must have the same bullet points in the same order.
 
 If a section in the English original references another checkpoint with a relative link like `[Stacks](../stack/)`, keep the same link target — locale-aware routing handles the rest.
 
-## 5. Handling incomplete or in-progress translations
+## 6. Handling incomplete or in-progress translations
 
-If you publish a Japanese file that is partial or knowingly out-of-date, add this comment at the **very top of the body** (immediately after the closing `---` of the frontmatter):
+If you publish a translated file that is partial or knowingly out-of-date, add this comment at the **very top of the body** (immediately after the closing `---` of the frontmatter):
+
+- **Japanese:** `<!-- TODO: 翻訳中 / Translation in progress -->`
+- **Traditional Chinese:** `<!-- TODO: 翻譯中 / Translation in progress -->`
+
+For example (Japanese):
 
 ```html
 <!-- TODO: 翻訳中 / Translation in progress -->
@@ -130,17 +199,17 @@ If you publish a Japanese file that is partial or knowingly out-of-date, add thi
 
 The site renders a "Translation pending" banner when this marker is present. Remove the marker once the translation is complete and matches the latest English version.
 
-## 6. Keeping a translation in sync
+## 7. Keeping a translation in sync
 
-When the English file's `updated` date changes, the Japanese counterpart is by definition stale. To bring it up to date:
+When the English file's `updated` date changes, the translated counterpart is by definition stale. To bring it up to date:
 
 1. Diff the English file against the version your translation was last synced with.
 2. Translate the changed portions.
-3. Update the Japanese file's `updated` to match the new English `updated`.
+3. Update the translated file's `updated` to match the new English `updated`.
 
-If you cannot finish in one pass, add the translation-pending marker (step 5) and leave a clear TODO comment near unfinished sections.
+If you cannot finish in one pass, add the translation-pending marker (§6) and leave a clear TODO comment near unfinished sections.
 
-## 7. Final checklist
+## 8. Final checklist
 
 Before declaring the translation done:
 
@@ -149,7 +218,8 @@ Before declaring the translation done:
 - [ ] `title`, `summary`, and **every** `tags` entry are translated and read naturally in the target language.
 - [ ] `tags` list has the same length and order as the English original; reuses existing locale tags where possible.
 - [ ] Body section structure matches the English source one-to-one.
-- [ ] Japanese: plain form (not `です／ます`); first-mention terminology rule applied.
+- [ ] **Japanese**: plain form (not `です／ます`); first-mention terminology rule applied.
+- [ ] **Traditional Chinese**: Traditional characters throughout; Taiwan CS vocabulary used; first-mention gloss applied.
 - [ ] All math `$…$` / `$$…$$` blocks are untouched LaTeX.
 - [ ] All code blocks: language tag preserved, identifiers untouched, only prose comments translated.
 - [ ] Relative cross-reference links (`../foo/`) unchanged.
@@ -160,14 +230,16 @@ Before declaring the translation done:
 
 | Don't | Do instead |
 |-------|------------|
-| Prefix prerequisites with `ja/` | cpIds are language-neutral |
+| Prefix prerequisites with `ja/` or `zh-tw/` | cpIds are language-neutral |
 | Leave `tags` in English | Translate every tag into the target locale, preserving list length and order |
-| Coin a new locale-specific term for a tag that already has an established translation elsewhere in the corpus | Reuse the existing locale tag (e.g. always `所有権` for `Ownership`) |
+| Coin a new locale-specific term for a tag that already has an established translation elsewhere in the corpus | Reuse the existing locale tag (e.g. always `所有権` for `Ownership` in ja) |
 | Translate code identifiers or type names | Keep them in English |
 | Translate LaTeX commands or math symbols | Math source is universal |
 | Bump `updated` past the English file's date | They should match |
-| Use `です／ます` body style | Use plain form (`〜だ`, `〜する`) |
-| Render `スタック` with no English gloss on first mention | `スタック（stack）` |
+| Use `です／ます` body style (ja) | Use plain form (`〜だ`, `〜する`) |
+| Use Simplified Chinese characters or Mainland vocabulary (zh-tw) | Use Traditional characters and Taiwan CS terms (§4) |
+| Render `スタック` with no English gloss on first mention (ja) | `スタック（stack）` |
+| Render `堆疊` with no English gloss on first mention (zh-tw) | `堆疊（stack）` |
 | Add or omit sections relative to the English source | Mirror structure exactly |
 | Forget the translation-pending marker on partial work | Add the HTML comment at the top of the body |
 
@@ -175,5 +247,8 @@ Before declaring the translation done:
 
 - Full normative spec: [`roles/writing-articles.md`](../../roles/writing-articles.md) — see §10
 - English original to translate from: `contents/en/<cpId>.md`
-- Reference parallel pair: [`contents/en/basis/math/analysis/e.md`](../../contents/en/basis/math/analysis/e.md) ↔ [`contents/ja/basis/math/analysis/e.md`](../../contents/ja/basis/math/analysis/e.md)
+- Reference parallel pairs:
+  - ja: [`contents/en/basis/math/analysis/e.md`](../../contents/en/basis/math/analysis/e.md) ↔ [`contents/ja/basis/math/analysis/e.md`](../../contents/ja/basis/math/analysis/e.md)
+  - zh-tw: `contents/zh-tw/<cpId>.md` (mirror the EN structure with Traditional Chinese prose)
 - To write a fresh article first: [write-checkpoint](../write-checkpoint/SKILL.md)
+- To find untranslated checkpoints: `pnpm cli check-i18n --lang zh-tw`

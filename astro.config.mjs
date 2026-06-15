@@ -26,7 +26,7 @@ export default defineConfig({
     sitemap({
       i18n: {
         defaultLocale: 'en',
-        locales: { en: 'en', ja: 'ja' },
+        locales: { en: 'en', ja: 'ja', 'zh-tw': 'zh-tw' },
       },
     }),
     pagefind(),
@@ -34,7 +34,7 @@ export default defineConfig({
     checkpointValidator(),
   ],
   i18n: {
-    locales: ['en', 'ja'],
+    locales: ['en', 'ja', 'zh-tw'],
     defaultLocale: 'en',
     routing: {
       prefixDefaultLocale: true,

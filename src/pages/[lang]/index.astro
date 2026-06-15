@@ -43,6 +43,17 @@ const levelDescriptions: Record<string, Record<string, string>> = {
         homework: "学習を強化するための演習と課題。",
         "side-lines": "知っておくと良いが重要ではないもの。",
     },
+    "zh-tw": {
+        elementry: "每位 Rust 開發者都應掌握的基礎概念。",
+        basis: "計算機科學與數學的核心基礎。",
+        essential: "撰寫慣用 Rust 不可或缺的主題。",
+        advanced: "深入探討複雜的系統與模式。",
+        "cutting-edge": "最新的研究與新興技術。",
+        tricks: "日常開發中實用的技巧與慣用寫法。",
+        proof: "形式化證明與理論基礎。",
+        homework: "用以鞏固學習的練習與挑戰。",
+        "side-lines": "知道了不錯，但並非關鍵的內容。",
+    },
 };
 
 const desc = levelDescriptions[lang] ?? levelDescriptions.en;
@@ -59,7 +70,7 @@ const howToUse: Record<
             "Search for any concept in the bar above, or browse by Level or Category below.",
             "Open a checkpoint and read its prerequisites first — they point to what you should understand before this topic.",
             "Use the public graph at /latest.json to connect your own progress tracker or dashboard to the same DAG.",
-            "Switch language on any checkpoint page via the language switcher when a translation is available.",
+            "Switch the display language on any checkpoint page via the language switcher when a translation is available.",
         ],
         levelsLabel: "Levels",
         categoriesLabel: "Categories",
@@ -72,14 +83,34 @@ const howToUse: Record<
             "上の検索バーで概念を探すか、下のレベル・カテゴリから一覧を開きます。",
             "チェックポイントを開き、前提知識を先に読みます — このトピックの前に理解すべき内容へのリンクです。",
             "公開グラフ /latest.json を使えば、同じ DAG に自分の進捗トラッカーやダッシュボードを接続できます。",
-            "翻訳があるチェックポイントでは、ページ上の言語切替で英語と日本語を切り替えられます。",
+            "翻訳があるチェックポイントでは、ページ上の言語切替で表示言語を切り替えられます。",
         ],
         levelsLabel: "レベル",
         categoriesLabel: "カテゴリ",
     },
+    "zh-tw": {
+        title: "如何使用本站",
+        intro:
+            "Project Hematite 將 Rust 的學習內容組織成先備關係圖上的檢查點。以下是入門方式：",
+        steps: [
+            "在上方搜尋列輸入任何概念，或從下方依等級或分類瀏覽。",
+            "開啟一個檢查點，先閱讀它的先備知識 —— 那是學習本主題前應先理解的內容。",
+            "透過公開圖譜 /latest.json，可將你自己的進度追蹤器或儀表板連接到同一份 DAG。",
+            "在有提供翻譯的檢查點頁面，可使用語言切換器切換顯示語言。",
+        ],
+        levelsLabel: "等級",
+        categoriesLabel: "分類",
+    },
 };
 
 const guide = howToUse[lang] ?? howToUse.en;
+
+const taglines: Record<Locale, string> = {
+    en: "Open education for future Rust developers",
+    ja: "Rust開発者のためのオープン教育サイト",
+    "zh-tw": "為未來 Rust 開發者打造的開放教育網站",
+};
+const tagline = taglines[lang] ?? taglines.en;
 ---
 
 <BaseLayout title="Project Hematite" lang={lang}>
@@ -91,13 +122,7 @@ const guide = howToUse[lang] ?? howToUse.en;
             <h1 class="home-title">
                 Project <span class="accent">Hematite</span>
             </h1>
-            <p class="home-tagline">
-                {
-                    lang === "ja"
-                        ? "Rust開発者のためのオープン教育サイト"
-                        : "Open education for future Rust developers"
-                }
-            </p>
+            <p class="home-tagline">{tagline}</p>
             <div class="home-search">
                 <Search {lang} client:load />
             </div>
