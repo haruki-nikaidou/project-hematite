@@ -15,7 +15,7 @@ export const CATEGORIES = [
 
 export const FIRST_SEGMENTS = [...LEVELS, ...CATEGORIES] as const;
 
-export const LOCALES = ["en", "ja"] as const;
+export const LOCALES = ["en", "ja", "zh-tw"] as const;
 export const DEFAULT_LOCALE = "en" as const;
 
 export type Level = (typeof LEVELS)[number];

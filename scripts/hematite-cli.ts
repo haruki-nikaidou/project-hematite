@@ -3,7 +3,7 @@
  *
  * Usage:
  *   pnpm cli dep <cpId> [--lang <locale>]
- *   pnpm cli check-i18n [path-prefix]
+ *   pnpm cli check-i18n [path-prefix] [--lang <locale>]
  *
  * Self-contained: inlines the minimal logic from src/lib so that
  * Node's --experimental-strip-types can run it without a bundler.
@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 const LEVELS = ['elementry', 'basis', 'essential', 'advanced', 'cutting-edge'] as const;
 const CATEGORIES = ['tricks', 'proof', 'homework', 'side-lines'] as const;
 const FIRST_SEGMENTS = [...LEVELS, ...CATEGORIES] as const;
-const LOCALES = ['en', 'ja'] as const;
+const LOCALES = ['en', 'ja', 'zh-tw'] as const;
 const DEFAULT_LOCALE = 'en' as const;
 
 type Locale = (typeof LOCALES)[number];
@@ -246,27 +246,46 @@ function cmdDep(args: string[]): void {
 // ---------------------------------------------------------------------------
 
 function cmdCheckI18n(args: string[]): void {
-  const prefix = args.find((a) => !a.startsWith('--')) ?? '';
+  let prefix = '';
+  let lang = 'ja';
+
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--lang' && args[i + 1]) {
+      lang = args[++i];
+    } else if (!args[i].startsWith('--')) {
+      prefix = args[i];
+    }
+  }
+
+  if (lang === 'en') {
+    console.error('--lang must be a non-English target locale (English is the source).');
+    process.exit(1);
+  }
 
   const contentsDir = join(fileURLToPath(import.meta.url), '..', '..', 'contents');
   const allCheckpoints = loadAllCheckpoints(contentsDir);
   const enMap = allCheckpoints.get('en')!;
-  const jaMap = allCheckpoints.get('ja')!;
+  const targetMap = allCheckpoints.get(lang as Locale);
+
+  if (!targetMap) {
+    console.error(`Unknown locale: ${lang}`);
+    process.exit(1);
+  }
 
   const candidates = prefix
     ? [...enMap.entries()].filter(([id]) => id === prefix || id.startsWith(prefix + '/'))
     : [...enMap.entries()];
 
-  const missing = candidates.filter(([id]) => !jaMap.has(id));
+  const missing = candidates.filter(([id]) => !targetMap.has(id));
 
   if (missing.length === 0) {
     const scope = prefix ? `under "${prefix}"` : 'in total';
-    console.log(`All ${candidates.length} checkpoints ${scope} have Japanese translations.`);
+    console.log(`All ${candidates.length} checkpoints ${scope} have ${lang} translations.`);
     return;
   }
 
   const scope = prefix ? ` under "${prefix}"` : '';
-  console.log(`Missing Japanese translations${scope}: ${missing.length} of ${candidates.length}\n`);
+  console.log(`Missing ${lang} translations${scope}: ${missing.length} of ${candidates.length}\n`);
   for (const [id, node] of missing) {
     console.log(`  ${id.padEnd(50)} ${node.title}`);
   }
@@ -292,7 +311,7 @@ switch (subcommand) {
         '',
         'Subcommands:',
         '  dep <cpId> [--lang <locale>]   List all transitive prerequisites of a checkpoint',
-        '  check-i18n [path-prefix]       Find checkpoints missing a Japanese translation',
+        '  check-i18n [path-prefix] [--lang <locale>]  Find checkpoints missing a translation (default --lang ja)',
       ].join('\n'),
     );
     process.exit(subcommand ? 1 : 0);
