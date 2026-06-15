@@ -15,7 +15,9 @@ updated: 2026-05-17
 
 **次元定理（rank-nullity theorem）**：体 $F$ 上の有限次元ベクトル空間 $V$ と線型写像 $T: V \to W$ に対して：
 
-$$\dim(V) = \text{rank}(T) + \text{nullity}(T). \tag{1}$$
+$$
+\dim (V) = \operatorname{rank} (T) + \operatorname{nullity} (T). \tag{1}
+$$
 
 言葉で言うと：定義域の次元は像の次元と核の次元の和に等しい。
 

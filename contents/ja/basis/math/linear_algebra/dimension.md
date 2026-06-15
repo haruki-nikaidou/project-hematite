@@ -74,11 +74,15 @@ $$\text{rank}(A) = \dim(\text{row}(A)) = \dim(\text{col}(A)).$$
 
 $A$ の**零化次元**（nullity）は核の次元——同次方程式系 $Ax = \mathbf{0}$ の解集合の次元——だ：
 
-$$\text{nullity}(A) = \dim(\ker(A)).$$
+$$
+\operatorname{nullity}(A) = \dim(\ker(A)).
+$$
 
 $m \times n$ 行列 $A$ に対して、この二つの量は[次元定理](../rank_nullity_theorem/)によって関係づけられる：
 
-$$\text{rank}(A) + \text{nullity}(A) = n. \tag{1}$$
+$$
+\operatorname{rank} (A) + \operatorname{nullity} (A) = n. \tag{1}
+$$
 
 $A$ のすべての列はピボット列（ランクに $1$ を寄与）か自由列（零化次元に $1$ を寄与）のどちらかだ。$n$ 本の列は二つに分配され、どの列も二度数えられることなく、またどの列も取り残されることなく。
 

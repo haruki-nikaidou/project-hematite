@@ -15,7 +15,9 @@ The rank-nullity theorem is a conservation law for dimensions. When a linear map
 
 **Rank-nullity theorem**: Let $V$ be a finite-dimensional vector space over a field $F$, and let $T: V \to W$ be a linear map. Then
 
-$$\dim(V) = \text{rank}(T) + \text{nullity}(T). \tag{1}$$
+$$
+\dim (V) = \operatorname{rank} (T) + \operatorname{nullity} (T). \tag{1}
+$$
 
 In words: the dimension of the domain equals the dimension of the image plus the dimension of the kernel.
 

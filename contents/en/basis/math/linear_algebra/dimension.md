@@ -74,11 +74,15 @@ $$\text{rank}(A) = \dim(\text{row}(A)) = \dim(\text{col}(A)).$$
 
 The **nullity** of $A$ is the dimension of its kernel — the solution set of the homogeneous system $Ax = \mathbf{0}$:
 
-$$\text{nullity}(A) = \dim(\ker(A)).$$
+$$
+\operatorname{nullity}(A) = \dim(\ker(A)).
+$$
 
 For an $m \times n$ matrix $A$, these two quantities are related by the [Rank-Nullity Theorem](../rank_nullity_theorem/):
 
-$$\text{rank}(A) + \text{nullity}(A) = n. \tag{1}$$
+$$
+\operatorname{rank}(A) + \operatorname{nullity}(A) = n. \tag{1}
+$$
 
 Every column of $A$ is either a pivot column (contributing $1$ to the rank) or a free column (contributing $1$ to the nullity). The $n$ columns are partitioned between the two, with no column counted twice and no column left out.
 
